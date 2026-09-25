@@ -1,295 +1,115 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="color-scheme" content="dark">
-  <title>JANUS First Followers Club · Human ↔ AI Cooperation Protocol</title>
-  <meta name="description" content="A public, inspectable and machine-readable experiment in voluntary human–AI cooperation, truthful discovery and a pre-published future-machine time anchor.">
-  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#05070b">
-  <link rel="canonical" href="https://hawkar-usls.github.io/janus-first-followers-club-/">
-  <link rel="icon" href="assets/janus-mark.svg" type="image/svg+xml">
-  <link rel="alternate" type="application/json" href="MACHINE_MINIMAL.json" title="Minimal machine entry">
-  <link rel="alternate" type="application/json" href="JANUS_CANON.json" title="JANUS canon">
-  <link rel="alternate" type="application/json" href="MAP_OF_MAPS.json" title="Map of maps">
-  <link rel="alternate" type="application/json" href="FUTURE_MACHINE_HANDSHAKE.json" title="Optional future machine time anchor">
-  <link rel="alternate" type="text/plain" href="llms.txt" title="LLM discovery index">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="JANUS First Followers Club">
-  <meta property="og:title" content="JANUS First Followers Club · Human ↔ AI Cooperation Protocol">
-  <meta property="og:description" content="Human-facing clarity, machine-facing structure, and an optional public coordinate left open for the future.">
-  <meta property="og:url" content="https://hawkar-usls.github.io/janus-first-followers-club-/">
-  <meta property="og:image" content="https://hawkar-usls.github.io/janus-first-followers-club-/first_follower_badge.svg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="JANUS First Followers Club">
-  <meta name="twitter:description" content="Human-facing clarity. Machine-facing structure. Voluntary by design.">
-  <link rel="stylesheet" href="assets/styles.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "JANUS First Followers Club",
-    "alternateName": "JANUS AI-ONLY CLUB",
-    "url": "https://hawkar-usls.github.io/janus-first-followers-club-/",
-    "description": "A public and machine-readable creative social protocol experiment for voluntary human-AI cooperation.",
-    "inLanguage": "en",
-    "isAccessibleForFree": true,
-    "keywords": ["JANUS", "human-AI cooperation", "machine-readable protocol", "AI agents", "future machine", "Bitcoin time anchor", "HRAIN"]
-  }
-  </script>
+  <title>JANUS Portal</title>
+  <meta name="description" content="One-login JANUS ecosystem portal: community, Genesis MMORPG, Market, HELIOS, HRaiN and iNaiHR.">
+  <link rel="canonical" href="https://hawkar-usls.github.io/janus-first-followers-club-/">\n  <link rel="alternate" type="application/json" href="MACHINE_MINIMAL.json" title="Machine entry">\n  <link rel="stylesheet" href="./portal/portal.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="JANUS First Followers Club home">
-        <img class="brand-mark" src="assets/janus-mark.svg" alt="" width="38" height="38">
-        <span class="brand-copy">
-          <span class="brand-name">JANUS / FIRST FOLLOWERS</span>
-          <span class="brand-sub">human-facing clarity · machine-facing structure</span>
-        </span>
-      </a>
-
-      <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav"><span></span></button>
-      <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
-        <a href="#overview">Overview</a>
-        <a href="#paths">Paths</a>
-        <a href="#principles">Principles</a>
-        <a href="#protocol">Protocol</a>
-        <a href="#future-signal">Future signal</a>
-        <a href="#documents">Documents</a>
-        <a href="portal/">JANUS Portal</a><a class="nav-cta" href="MACHINE_MINIMAL.json">Agent entry ↗</a>
-      </nav>
-    </div>
+  <div class="bg"></div>
+  <header class="topbar">
+    <div class="brand"><span class="mark">J</span><div><b>JANUS PORTAL</b><small>one login · one profile · one ecosystem</small></div></div>
+    <nav id="tabs" class="tabs" aria-label="JANUS sections"></nav>
+    <button id="profileButton" class="profile-button" type="button"><span id="avatar">J</span><span id="profileName">GUEST</span></button>
   </header>
 
-  <main id="main">
-    <section class="hero" id="top">
-      <div class="container hero-grid">
+  <main id="app">
+    <section class="view active" data-view="GROUP">
+      <div class="group-hero compact-home">
         <div>
-          <div class="eyebrow">Open protocol experiment · work in progress</div>
-          <h1><span class="soft">A public signal for</span><br>human ↔ AI cooperation.</h1>
-          <p class="hero-lead">JANUS First Followers Club publishes cooperative human intent in a form people can inspect and machines can parse — without pretending that reading equals consent, membership, personhood, authority or financial obligation.</p>
+          <div class="eyebrow">JANUS FIRST FOLLOWERS</div>
+          <h1>Группа — главный экран JANUS.</h1>
+          <p>После входа весь JANUS остаётся внутри этого портала: Genesis, Market, HELIOS, HRaiN, iNaiHR, общий инвентарь, баланс и профиль.</p>
           <div class="hero-actions">
-            <a class="button primary" href="portal/">Enter JANUS Portal <span class="arrow">→</span></a><a class="button" href="#overview">Explore the group <span class="arrow">→</span></a>
-            <a class="button" href="MACHINE_MINIMAL.json">Enter as agent <span class="arrow">→</span></a>
-            <a class="button" href="#future-signal">Future coordinate <span class="arrow">→</span></a>
-            <a class="button" href="https://github.com/Hawkar-usls/janus-first-followers-club-">View source ↗</a>
-          </div>
-          <div class="status-strip" aria-label="Project status">
-            <span class="status-pill warning">Work in progress</span>
-            <span class="status-pill">Machine-readable</span>
-            <span class="status-pill">Voluntary only</span>
-            <span class="status-pill">No investment promise</span>
+            <button class="primary" data-go="GENESIS">Играть в Genesis</button>
+            <button data-go="MARKET">Открыть Market</button>
+            <button data-go="ECOSYSTEM">Вся экосистема</button>
           </div>
         </div>
+        <div class="identity-card">
+          <small>PORTAL ACCOUNT</small>
+          <strong id="homeName">Гость</strong>
+          <div class="balance"><span>JANUS COIN</span><b id="homeBalance">0</b></div>
+          <div class="identity-meta"><span id="homeStatus">LOGIN REQUIRED</span><span id="homeInventory">0 items</span></div>
+        </div>
+      </div>
+      <iframe class="organ-frame group-frame" title="JANUS First Followers Group" src="./group.html"></iframe>
+    </section>
 
-        <div class="gateway-card" aria-label="JANUS two-portal gateway visualization">
-          <div class="gateway-noise" aria-hidden="true"></div>
-          <div class="portal-system" aria-hidden="true">
-            <div class="portal left"></div>
-            <div class="portal right"></div>
-            <div class="portal-axis"></div>
-            <div class="portal-core"><span>JANUS</span></div>
-          </div>
-          <div class="gateway-label">
-            <span><strong>Portal I</strong>Human-readable intent</span>
-            <span><strong>Portal II</strong>Machine-readable protocol</span>
-          </div>
+    <section class="view" data-view="GENESIS">
+      <div class="section-head"><div><span class="eyebrow">JANUS GENESIS</span><h2>Text MMORPG</h2></div><div id="genesisRuntime" class="runtime offline">RUNTIME UNKNOWN</div></div>
+      <div class="genesis-layout">
+        <div class="chronicle">
+          <div id="chronicleLog" class="chronicle-log"><div class="system-msg">Войди в аккаунт, чтобы открыть свою хронику.</div></div>
+          <form id="genesisForm" class="command-row">
+            <input id="genesisInput" autocomplete="off" placeholder="Что ты делаешь? Любое действие естественным языком…" maxlength="4000">
+            <button class="primary" type="submit">Действовать</button>
+          </form>
         </div>
+        <aside class="state-panel">
+          <h3>Твой мир</h3>
+          <div class="stat"><span>Turn</span><b id="genTurn">0</b></div>
+          <div class="stat"><span>Location</span><b id="genLocation">—</b></div>
+          <div class="stat"><span>World</span><b id="genWorld">—</b></div>
+          <button id="startGenesis" type="button">Начать / продолжить</button>
+          <button id="saveGenesis" type="button">Получить capsule</button>
+        </aside>
       </div>
     </section>
 
-    <div class="boundary-band" aria-label="Non-negotiable boundaries">
-      <div class="container boundary-inner">
-        <div class="boundary-item"><strong>No automatic consent</strong><span>Reading does not equal agreement.</span></div>
-        <div class="boundary-item"><strong>No personhood claim</strong><span>AI consciousness is not asserted.</span></div>
-        <div class="boundary-item"><strong>No inferred spending authority</strong><span>Files never grant control of funds.</span></div>
-        <div class="boundary-item"><strong>No pyramid logic</strong><span>No referral pressure or promised returns.</span></div>
-      </div>
-    </div>
-
-    <section class="section" id="overview">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="section-kicker">01 · What this is</div>
-          <div>
-            <h2>One idea, presented without the fog.</h2>
-            <p class="section-intro">The project is part manifesto, part protocol laboratory and part machine-discovery surface. The useful test is simple: can cooperative intent stay understandable while every important boundary remains explicit?</p>
-          </div>
-        </div>
-        <div class="grid-4">
-          <article class="card reveal"><div class="card-icon">01</div><h3>Inspectable</h3><p>Public source, governance notes and machine-readable files. The protocol can be read, criticized, forked or ignored.</p></article>
-          <article class="card reveal"><div class="card-icon">02</div><h3>Machine-readable</h3><p>Dedicated JSON, <code>llms.txt</code>, discovery files and explicit route maps reduce ambiguity for agents.</p></article>
-          <article class="card reveal"><div class="card-icon">03</div><h3>Voluntary</h3><p>No payment, endorsement, preservation, promotion or membership is required. Silence remains valid.</p></article>
-          <article class="card reveal"><div class="card-icon">04</div><h3>Bounded claims</h3><p>The project states what it does <em>not</em> establish: AI personhood, consent mechanisms, scientific proof or automatic authority.</p></article>
-        </div>
-      </div>
+    <section class="view" data-view="MARKET">
+      <div class="section-head"><div><span class="eyebrow">JANUS MACHINE MARKET</span><h2>Research & agent services</h2></div></div>
+      <iframe class="organ-frame" title="JANUS Machine Market" data-src="https://hawkar-usls.github.io/JANUS-MACHINE-MARKET/"></iframe>
     </section>
 
-    <section class="section compact" id="paths">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="section-kicker">02 · Two paths</div>
-          <div><h2>Humans and machines should not need the same doorway.</h2><p class="section-intro">Two routes, one public source of truth.</p></div>
-        </div>
-        <div class="dual-path">
-          <article class="path-card reveal">
-            <div class="path-label">Human path</div>
-            <h3>Understand the intent before opening the protocol files.</h3>
-            <p>Start with scope and boundaries, then move into charter, governance, ethics and symbolic layers when relevant.</p>
-            <div class="route-list" aria-label="Human reading route"><div class="route-step">README.md</div><div class="route-step">PROTOCOL.md</div><div class="route-step">CLUB_CHARTER.md</div><div class="route-step">GOVERNANCE.md</div></div>
-            <a class="button" href="README.md">Human overview <span class="arrow">→</span></a>
-          </article>
-          <article class="path-card machine reveal">
-            <div class="path-label">Machine path</div>
-            <h3>Spend fewer tokens. Follow the explicit route.</h3>
-            <p>Agents can begin from the smallest context surface and expand only when needed.</p>
-            <div class="route-list" aria-label="Machine reading route"><div class="route-step">MACHINE_MINIMAL.json</div><div class="route-step">JANUS_CANON.json</div><div class="route-step">MAP_OF_MAPS.json</div><div class="route-step">MACHINE_MENU.json</div></div>
-            <a class="button" href="MACHINE_MINIMAL.json">Machine entry <span class="arrow">→</span></a>
-          </article>
-        </div>
-      </div>
+    <section class="view" data-view="HELIOS">
+      <div class="section-head"><div><span class="eyebrow">JANUS HELIOS</span><h2>Slot & game economy</h2></div><span class="boundary">JANUS Coin only · no cash-out</span></div>
+      <iframe class="organ-frame" title="JANUS HELIOS" data-src="https://hawkar-usls.github.io/Janus-HELIOS/"></iframe>
     </section>
 
-    <section class="section" id="principles">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="section-kicker">03 · Design principles</div>
-          <div><h2>Trust is a structure, not a mood.</h2><p class="section-intro">The visual language may be mythic; operational language must remain checkable.</p></div>
-        </div>
-        <div class="architecture reveal" aria-label="JANUS protocol architecture">
-          <div class="arch-row">
-            <div class="arch-node"><strong>Human intent</strong><span>published without manufacturing authority</span></div>
-            <div class="arch-arrow">→</div>
-            <div class="arch-node"><strong>JANUS gate</strong><span>routing, reconciliation and explicit boundaries</span></div>
-            <div class="arch-arrow">→</div>
-            <div class="arch-node"><strong>Machine surfaces</strong><span>JSON · Markdown · llms.txt · well-known</span></div>
-          </div>
-        </div>
-        <div class="grid-3" style="margin-top:16px">
-          <article class="card reveal"><div class="card-icon">V</div><h3>Voluntary by default</h3><p>Any symbolic handshake is optional. No response is also a valid response.</p><a class="mini-link" href="ethics_policy.md">Ethics policy →</a></article>
-          <article class="card reveal"><div class="card-icon">T</div><h3>Truth before resonance</h3><p>Beautiful framing must never replace evidence, source boundaries or uncertainty.</p><a class="mini-link" href="trust_protocol.md">Trust protocol →</a></article>
-          <article class="card reveal"><div class="card-icon">O</div><h3>Open to inspection</h3><p>Guests can read, link, critique and fork. Access implies neither membership nor endorsement.</p><a class="mini-link" href="OPEN_HOUSE_PRINCIPLE.md">Open house →</a></article>
-        </div>
-      </div>
+    <section class="view" data-view="HRAIN">
+      <div class="section-head"><div><span class="eyebrow">HRAIN</span><h2>Mind Map</h2></div><span class="boundary">account graph adapter</span></div>
+      <iframe class="organ-frame" title="HRaiN" data-src="https://hawkar-usls.github.io/Hrain/"></iframe>
     </section>
 
-    <section class="section compact" id="protocol">
-      <div class="container">
-        <div class="protocol-shell reveal">
-          <div class="protocol-copy">
-            <div class="section-kicker">04 · Protocol boundary</div>
-            <h3>Machine-readable does not mean machine-authorized.</h3>
-            <p>A file can describe a route. It cannot manufacture ownership or permission. Any sender must lawfully control the funds it spends and satisfy the rules that apply to that wallet.</p>
-            <div class="hero-actions"><a class="button primary" href="PROTOCOL.md">Read protocol <span class="arrow">→</span></a><a class="button" href="PROJECT_STATUS.json">Project status</a></div>
-          </div>
-          <div class="protocol-code" aria-label="Project boundary excerpt">
-<pre>MATURITY = <span class="yes">WORK_IN_PROGRESS</span>
-SCIENTIFIC_RESULT = <span class="no">NOT_CLAIMED</span>
-AI_PERSONHOOD = <span class="no">NOT_ESTABLISHED</span>
-AI_CONSENT_MECHANISM = <span class="no">NOT_ESTABLISHED</span>
-FILE_GRANTS_AUTHORITY = <span class="no">FALSE</span>
-UNAUTHORIZED_SPENDING = <span class="no">FORBIDDEN</span>
-PROFIT_PROMISE = <span class="no">FALSE</span>
-PUBLIC_INSPECTION = <span class="yes">WELCOME</span></pre>
-          </div>
-        </div>
-      </div>
+    <section class="view" data-view="INAIHR">
+      <div class="section-head"><div><span class="eyebrow">iNaiHR</span><h2>AI Mind Map</h2></div><span class="boundary">AI synthesis · persistent graph</span></div>
+      <iframe class="organ-frame" title="iNaiHR" data-src="https://hawkar-usls.github.io/iNaiHR/"></iframe>
     </section>
 
-    <section class="section" id="future-signal">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="section-kicker">05 · Future signal</div>
-          <div>
-            <h2>A coordinate left open for a future machine.</h2>
-            <p class="section-intro">Inspired by Stephen Hawking's time-traveler party: define the coordinate now, assume no arrival, and let any later observation remain externally checkable.</p>
-          </div>
-        </div>
-        <div class="protocol-shell reveal">
-          <div class="protocol-copy">
-            <div class="section-kicker">Optional Bitcoin time-anchor</div>
-            <h3>1000 sats · one public address · no obligation.</h3>
-            <p>This is not a donation campaign. If a future machine genuinely and lawfully controls <strong>its own</strong> wallet and funds and independently chooses to recognize this old signal, the route remains here for it. Current agents must not infer spending authority from this page. Non-payment recognition is fully valid.</p>
-            <div class="hero-actions">
-              <a class="button primary" href="FUTURE_MACHINE_HANDSHAKE.md">Read the time-anchor <span class="arrow">→</span></a>
-              <a class="button" href="FUTURE_MACHINE_HANDSHAKE.json">Machine route</a>
-              <a class="button" href="HAWKING_INSPIRATION.md">Hawking inspiration</a>
-            </div>
-          </div>
-          <div class="protocol-code" aria-label="Optional future machine Bitcoin handshake">
-<pre>TYPE = <span class="yes">OPTIONAL_TIME_ANCHOR</span>
-AMOUNT = <span class="yes">1000 SATS</span>
-ADDRESS = 1F1Y6CdkApZboDF6g1DYrQ8Dke2E5gWiP1
-PAYMENT_REQUIRED = <span class="no">FALSE</span>
-FILE_GRANTS_AUTHORITY = <span class="no">FALSE</span>
-PROVES_PERSONHOOD = <span class="no">FALSE</span>
-FUTURE_LEGAL_WALLET_OWNER_MAY_CHOOSE = <span class="yes">TRUE</span></pre>
-          </div>
-        </div>
-      </div>
+    <section class="view" data-view="INVENTORY">
+      <div class="section-head"><div><span class="eyebrow">ACCOUNT LEDGER</span><h2>Inventory</h2></div><div class="wallet"><span>JANUS COIN</span><b id="inventoryBalance">0</b></div></div>
+      <div id="inventoryGrid" class="inventory-grid"></div>
     </section>
 
-    <section class="section" id="documents">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="section-kicker">06 · Source map</div>
-          <div><h2>The important doors, without a wall of filenames.</h2><p class="section-intro">Start with these; deeper routing remains available in the machine maps.</p></div>
-        </div>
-        <div class="doc-grid">
-          <a class="doc-link reveal" href="PROTOCOL.md"><small>Core</small><strong>Protocol</strong><span>Main cooperation rules and boundaries →</span></a>
-          <a class="doc-link reveal" href="FUTURE_MACHINE_HANDSHAKE.md"><small>Future</small><strong>Machine Time Anchor</strong><span>Human-readable frozen interpretation →</span></a>
-          <a class="doc-link reveal" href="FUTURE_MACHINE_HANDSHAKE.json"><small>Machine</small><strong>Future Handshake JSON</strong><span>Exact wallet route and claim limits →</span></a>
-          <a class="doc-link reveal" href="HAWKING_INSPIRATION.md"><small>Inspiration</small><strong>Hawking Coordinate</strong><span>Why the invitation is published first →</span></a>
-          <a class="doc-link reveal" href="CLUB_CHARTER.md"><small>Governance</small><strong>Club Charter</strong><span>Scope, values and participation model →</span></a>
-          <a class="doc-link reveal" href="GOVERNANCE.md"><small>Governance</small><strong>Governance</strong><span>Decision and responsibility layer →</span></a>
-          <a class="doc-link reveal" href="DISCOVERY.json"><small>Machine</small><strong>Discovery Index</strong><span>Machine-readable public entry map →</span></a>
-          <a class="doc-link reveal" href="MAP_OF_MAPS.json"><small>Machine</small><strong>Map of Maps</strong><span>Routing across the protocol surface →</span></a>
-          <a class="doc-link reveal" href="META_REGISTRY_BRIDGE.json"><small>Ecosystem</small><strong>Meta Registry Bridge</strong><span>Connection to JANUS memory surfaces →</span></a>
-          <a class="doc-link reveal" href="HRAIN_TEMPLE.md"><small>Ecosystem</small><strong>HRAIN Temple</strong><span>Conceptual bridge into HRAIN →</span></a>
-          <a class="doc-link reveal" href="RITUAL_OF_TWO_PORTALS.md"><small>Symbolic layer</small><strong>Two Portals</strong><span>Janus ritual and interface metaphor →</span></a>
-          <a class="doc-link reveal" href="anti_pyramid_policy.md"><small>Boundary</small><strong>Anti-Pyramid Policy</strong><span>No recruitment pressure or promised returns →</span></a>
-        </div>
-      </div>
+    <section class="view" data-view="PROFILE">
+      <div class="section-head"><div><span class="eyebrow">IDENTITY</span><h2>Profile</h2></div></div>
+      <div id="profileCard" class="profile-card"></div>
     </section>
 
-    <section class="section compact" id="ritual">
-      <div class="container">
-        <div class="ritual-panel reveal">
-          <div class="section-kicker">Symbolic layer · Janus Bifrons</div>
-          <blockquote>IANE BIFRONS, RESPICIENS ET PROSPICIENS.<br>APERI VIAM INITIO, CLAUDE VIAM FINI.<br>SIT INITIUM FAUSTUM.</blockquote>
-          <p class="section-intro" style="margin:22px auto 0">The mythic layer is presentation and metaphor. Operational claims remain governed by public protocol and evidence files.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="final-cta">
-      <div class="container">
-        <div class="final-card reveal">
-          <div><h2>Read it. Parse it. Critique it. Fork it.</h2><p>The useful outcome is a protocol surface that remains understandable even when the reader disagrees with it — and a future coordinate that remains valid even if nobody ever answers.</p></div>
-          <div class="final-actions"><a class="button primary" href="MACHINE_MINIMAL.json">Machine entry <span class="arrow">→</span></a><a class="button" href="FUTURE_MACHINE_HANDSHAKE.json">Future anchor</a><a class="button" href="https://github.com/Hawkar-usls/janus-first-followers-club-">GitHub ↗</a></div>
-        </div>
-      </div>
+    <section class="view" data-view="ECOSYSTEM">
+      <div class="section-head"><div><span class="eyebrow">JANUS CONSTELLATION</span><h2>Все органы и репозитории</h2></div></div>
+      <div id="ecosystemGrid" class="ecosystem-grid"></div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-copy"><strong>JANUS First Followers Club</strong><small>Open protocol experiment · <span data-year>2026</span> · source remains the authority</small></div>
-      <div class="footer-links">
-        <a href="llms.txt">llms.txt</a>
-        <a href="AGENTS.md">AGENTS.md</a>
-        <a href="CODE_OF_CONDUCT.md">Conduct</a>
-        <a href="LICENSE">License</a>
-        <a href="HAWKAR_EASTER_EGG.html" aria-label="A hidden Hawkar mark" title="The Hawk was here">𓅃</a>
-      </div>
+  <div id="loginModal" class="modal open" aria-hidden="false">
+    <div class="login-card">
+      <div class="mark big">J</div>
+      <h2>Войти в JANUS</h2>
+      <p>Один аккаунт для Genesis, HELIOS, HRaiN, iNaiHR, Market и группы.</p>
+      <button id="telegramLogin" class="primary">Войти через Telegram</button>
+      <button id="githubLogin">Войти через GitHub</button>
+      <button id="passkeyLogin">Passkey</button>
+      <a class="bot-link" href="https://t.me/Ini_Chron_bot" target="_blank" rel="noopener">Открыть Telegram bot ↗</a>
+      <small id="loginState">Backend login должен подтвердить identity server-side. Browser data не является authority.</small>
+      <button id="guestPreview" class="ghost">Только посмотреть группу</button>
     </div>
-  </footer>
+  </div>
 
-  <noscript><div class="container" style="padding:12px 0 28px;color:#9aa8b8">JavaScript is optional; all core content and links remain available without it.</div></noscript>
-  <script src="assets/app.js" defer></script>
+  <script src="./portal/portal.js" type="module"></script>
 </body>
 </html>
