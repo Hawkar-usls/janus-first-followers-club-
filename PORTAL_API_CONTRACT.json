@@ -20,7 +20,7 @@
       "returns": "account+session"
     },
     "POST /api/portal/auth/telegram": {
-      "auth": "TELEGRAM_INIT_DATA_SERVER_VERIFY",
+      "auth": "TELEGRAM_MINI_APP_INIT_DATA_SERVER_VERIFY",
       "idempotent": true
     },
     "GET /api/portal/auth/github/start": {
@@ -160,6 +160,16 @@
       "idempotency_required": true,
       "requires": "PORTAL_REWARD_GRANT+HELIOS_ADAPTER_ACK",
       "effect": "CONSUME_NON_CASH_HELIOS_BONUS"
+    },
+    "GET /api/portal/auth/telegram/start": {
+      "auth": "NONE",
+      "effect": "OIDC_AUTHORIZATION_CODE_PKCE_REDIRECT",
+      "requires": "STATE+PKCE_VERIFIER_SERVER_BINDING"
+    },
+    "GET /api/portal/auth/telegram/callback": {
+      "auth": "TELEGRAM_OIDC_CODE",
+      "effect": "VERIFY_ID_TOKEN_CREATE_OR_LINK_SESSION",
+      "requires": "STATE_MATCH+PKCE+JWKS_SIGNATURE+ISSUER+AUDIENCE+EXPIRY"
     }
   },
   "mutation_rules": [
