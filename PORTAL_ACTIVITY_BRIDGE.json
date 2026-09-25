@@ -1,0 +1,119 @@
+{
+  "schema": "janus.portal.activity_bridge.v1",
+  "version": "1.0.0",
+  "recorded_at": "2026-09-25",
+  "status": "CONTRACT_READY_SOURCE_ADAPTERS_PENDING",
+  "purpose": "Normalize verified activity from the group and JANUS organs into bounded reward events without trusting browser claims or raw activity volume.",
+  "canonical_sink": "POST /api/portal/internal/activity",
+  "event_envelope": {
+    "required": [
+      "schema",
+      "source",
+      "source_event_id",
+      "source_receipt_digest",
+      "account_id",
+      "principal_kind",
+      "event_type",
+      "occurred_at",
+      "idempotency_key"
+    ],
+    "schema": "janus.portal.activity_event.v1",
+    "source_event_id_unique_forever": true,
+    "source_receipt_digest": "SHA256_OR_STRONGER_CANONICAL_RECEIPT_DIGEST",
+    "browser_may_submit_directly": false
+  },
+  "sources": {
+    "GROUP_TELEGRAM": {
+      "transport": "PORTAL_TELEGRAM_GATEWAY_OR_DEDICATED_GROUP_ADAPTER",
+      "accepted_events": [
+        "GROUP_DAILY_PARTICIPATION",
+        "GROUP_ACCEPTED_CONTRIBUTION"
+      ],
+      "account_binding": "VERIFIED_TELEGRAM_PRINCIPAL_LINK",
+      "raw_message_body_needed_for_reward_engine": false,
+      "raw_message_count_rewarded": false,
+      "first_eligible_event_per_day_only": true,
+      "bot_default_rewardable": false
+    },
+    "GROUP_PORTAL": {
+      "transport": "PORTAL_COMMUNITY_BACKEND",
+      "accepted_events": [
+        "GROUP_DAILY_PARTICIPATION",
+        "GROUP_ACCEPTED_CONTRIBUTION"
+      ],
+      "account_binding": "SESSION_ACCOUNT",
+      "raw_page_view_rewarded": false,
+      "raw_click_rewarded": false
+    },
+    "GENESIS": {
+      "transport": "GENESIS_BROKER_RECEIPT",
+      "accepted_events": [
+        "GENESIS_DAILY_PLAY",
+        "GENESIS_QUEST_COMPLETE"
+      ],
+      "source_repository": "Hawkar-usls/Janus_Genesis",
+      "browser_narration_not_receipt": true
+    },
+    "HRAIN": {
+      "transport": "ACCOUNT_GRAPH_STORE_RECEIPT",
+      "accepted_events": [
+        "HRAIN_GRAPH_SAVE"
+      ],
+      "source_repository": "Hawkar-usls/Hrain",
+      "local_storage_event_not_receipt": true
+    },
+    "INAIHR": {
+      "transport": "ACCOUNT_GRAPH_STORE_RECEIPT",
+      "accepted_events": [
+        "INAIHR_ACCEPTED_SYNTH"
+      ],
+      "source_repository": "Hawkar-usls/iNaiHR",
+      "synthesis_output_alone_not_rewardable": true,
+      "explicit_user_acceptance_required": true
+    },
+    "HELIOS": {
+      "transport": "PORTAL_HELIOS_ADAPTER_RECEIPT",
+      "accepted_events": [
+        "HELIOS_DAILY_PLAY"
+      ],
+      "source_repository": "Hawkar-usls/Janus-HELIOS",
+      "real_money_spend_reward_multiplier": 0,
+      "outcome_or_win_amount_reward_multiplier": 0
+    },
+    "MARKET": {
+      "transport": "MARKET_RECONCILE_RECEIPT",
+      "accepted_events": [
+        "MARKET_COMPLETED_FREE_SEARCH",
+        "MARKET_COMPLETED_PAID_ORDER"
+      ],
+      "source_repository": "Hawkar-usls/JANUS-MACHINE-MARKET",
+      "payment_amount_reward_multiplier": 0,
+      "request_created_not_enough": true,
+      "completed_reconcile_required": true
+    },
+    "CROSS_ORGAN": {
+      "transport": "PORTAL_REWARD_LEDGER_DERIVED",
+      "accepted_events": [
+        "CROSS_ORGAN_EXPLORATION"
+      ],
+      "derivation": "THREE_DISTINCT_VERIFIED_ORGAN_RECEIPTS_IN_ONE_ISO_WEEK"
+    }
+  },
+  "moderation": {
+    "accepted_contribution_requires": "MODERATOR_OR_GOVERNED_PROJECT_ACCEPTANCE_RECEIPT",
+    "moderator_cannot_directly_set_balance": true,
+    "moderator_can_mark_source_event_eligible": true,
+    "reward_engine_applies_frozen_value": true,
+    "retraction": "APPEND_ONLY_COMPENSATING_REWARD_REVERSAL"
+  },
+  "abuse_firewall": [
+    "CLIENT_CANNOT_SELF_REPORT_REWARD_EVENT",
+    "MESSAGE_VOLUME_NE_REWARD_MULTIPLIER",
+    "REACTION_VOLUME_NE_REWARD_MULTIPLIER",
+    "BOT_LOOP_NE_ACTIVITY",
+    "SELF_REPLY_LOOP_NE_ACTIVITY",
+    "DELETED_OR_RETRACTED_SOURCE_EVENT_CAN_BE_REVERSED",
+    "PAYMENT_NE_PROGRESSION_WEIGHT",
+    "GAME_WIN_NE_COMMUNITY_XP_WEIGHT"
+  ]
+}
