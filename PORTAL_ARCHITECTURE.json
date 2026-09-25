@@ -1,0 +1,202 @@
+{
+  "schema": "janus.portal.architecture.v1",
+  "version": "1.0.0",
+  "recorded_at": "2026-09-25",
+  "status": "PORTAL_V1_IMPLEMENTATION_SHELL_ACCOUNT_BACKEND_PENDING",
+  "canonical_frontend_target": "https://tg-pomoyka.hawkarlol.chatgpt.site",
+  "source_portal_repository": "Hawkar-usls/janus-first-followers-club-",
+  "home_after_login": "GROUP",
+  "product_name": "JANUS PORTAL",
+  "principles": [
+    "ONE_LOGIN_ONE_PORTAL",
+    "ONE_SERVER_SIDE_GAME_BALANCE",
+    "ONE_SERVER_SIDE_INVENTORY",
+    "GENESIS_PROGRESS_DURABLE_AND_ACCOUNT_BOUND",
+    "GROUP_IS_DEFAULT_HOME",
+    "REPOSITORIES_ARE_ENGINES_NOT_SEPARATE_USER_DESTINATIONS",
+    "LOCAL_STORAGE_IS_CACHE_OR_MIGRATION_ONLY_NOT_AUTHORITY",
+    "GAME_CURRENCY_HAS_NO_CASH_VALUE",
+    "COMMERCIAL_PAYMENT_RAILS_ARE_SEPARATE_FROM_GAME_CURRENCY",
+    "NO_RUNTIME_CLAIM_WITHOUT_HEALTH_AND_RECEIPT"
+  ],
+  "tabs": [
+    {
+      "id": "GROUP",
+      "title": "Group",
+      "default": true,
+      "source": "Hawkar-usls/janus-first-followers-club-",
+      "mode": "NATIVE_PORTAL"
+    },
+    {
+      "id": "GENESIS",
+      "title": "Genesis MMORPG",
+      "source": "Hawkar-usls/Janus_Genesis",
+      "mode": "PORTAL_API",
+      "runtime_contract": "ai/GENESIS_HOSTED_ENTRY.json"
+    },
+    {
+      "id": "MARKET",
+      "title": "Market",
+      "source": "Hawkar-usls/JANUS-MACHINE-MARKET",
+      "mode": "PORTAL_EMBED_OR_API"
+    },
+    {
+      "id": "HELIOS",
+      "title": "HELIOS Slot",
+      "source": "Hawkar-usls/Janus-HELIOS",
+      "mode": "PORTAL_ADAPTER"
+    },
+    {
+      "id": "HRAIN",
+      "title": "HRaiN",
+      "source": "Hawkar-usls/Hrain",
+      "mode": "PORTAL_ADAPTER"
+    },
+    {
+      "id": "INAIHR",
+      "title": "iNaiHR",
+      "source": "Hawkar-usls/iNaiHR",
+      "mode": "PORTAL_ADAPTER"
+    },
+    {
+      "id": "INVENTORY",
+      "title": "Inventory",
+      "source": "PORTAL_LEDGER",
+      "mode": "NATIVE_PORTAL"
+    },
+    {
+      "id": "PROFILE",
+      "title": "Profile",
+      "source": "PORTAL_LEDGER",
+      "mode": "NATIVE_PORTAL"
+    },
+    {
+      "id": "ECOSYSTEM",
+      "title": "All JANUS",
+      "source": "PORTAL_REPO_CATALOG",
+      "mode": "NATIVE_PORTAL"
+    }
+  ],
+  "account": {
+    "canonical_account_id": "janus_account_uuid",
+    "providers": [
+      "TELEGRAM_VERIFIED_INIT_DATA",
+      "GITHUB_OAUTH_OR_APP_LOGIN",
+      "PASSKEY_WEBAUTHN_OPTIONAL"
+    ],
+    "alias_linking": "EXPLICIT_VERIFIED_LINK_ONLY",
+    "session": "HTTPONLY_SECURE_SAMESITE_COOKIE",
+    "public_browser_token_authority": false,
+    "server_side_profile_required": true
+  },
+  "economy": {
+    "currency": "JANUS_COIN",
+    "type": "NON_TRANSFERABLE_GAME_UTILITY_CREDIT",
+    "cash_value": false,
+    "purchasable_with_crypto": false,
+    "withdrawable": false,
+    "transferable_between_users": false,
+    "shared_across": [
+      "GENESIS",
+      "HELIOS_SLOT",
+      "PORTAL_COSMETICS",
+      "PORTAL_GAME_FEATURES"
+    ],
+    "prohibited_use": [
+      "REAL_MONEY_GAMBLING",
+      "CASH_OUT",
+      "USDT_SETTLEMENT",
+      "BTT_SETTLEMENT",
+      "PURCHASE_OF_CLOSED_MARKET_SKUS"
+    ],
+    "commercial_market_balance": "SEPARATE"
+  },
+  "inventory": {
+    "server_authority": true,
+    "shared_across_portal": true,
+    "namespaces": [
+      "GENESIS",
+      "HELIOS",
+      "PORTAL",
+      "GROUP"
+    ],
+    "item_ids_are_immutable": true,
+    "mutations_require_idempotency_key": true,
+    "append_only_ledger": true
+  },
+  "genesis": {
+    "ui": "DIRECT_TEXT_MMO_INSIDE_PORTAL",
+    "free_text_actions": true,
+    "hosted_runtime_source": "Hawkar-usls/Janus_Genesis",
+    "hosted_entry": "ai/GENESIS_HOSTED_ENTRY.json",
+    "start": "/v1/session/start",
+    "turn": "/v1/session/turn",
+    "state": "/v1/session/state",
+    "capsule": "/v1/session/capsule",
+    "portal_broker_routes": [
+      "/api/portal/genesis/start",
+      "/api/portal/genesis/turn",
+      "/api/portal/genesis/state",
+      "/api/portal/genesis/capsule"
+    ],
+    "fallback": "VISIBLE_RUNTIME_OFFLINE_OR_EXPLICIT_NARRATIVE_MODE",
+    "silent_fake_canonical_progress": false
+  },
+  "graphs": {
+    "hrain": {
+      "source": "Hawkar-usls/Hrain",
+      "purpose": "mind map / memory-context graph",
+      "portal_persistence": "ACCOUNT_SCOPED_SERVER_GRAPH",
+      "browser_local_import_supported": true
+    },
+    "inaihr": {
+      "source": "Hawkar-usls/iNaiHR",
+      "purpose": "AI-assisted semantic graph expansion",
+      "portal_persistence": "ACCOUNT_SCOPED_SERVER_GRAPH",
+      "synthesis_requires_bound_backend": true,
+      "local_fallback_must_be_labeled": true
+    }
+  },
+  "helios": {
+    "source": "Hawkar-usls/Janus-HELIOS",
+    "slot_directly_in_portal": true,
+    "balance_source": "PORTAL_LEDGER_JANUS_COIN",
+    "inventory_source": "PORTAL_LEDGER",
+    "cash_gambling": false,
+    "real_money_wagering": false,
+    "random_reward_receipts_required": true
+  },
+  "group": {
+    "source": "Hawkar-usls/janus-first-followers-club-",
+    "default_home": true,
+    "public_read_possible": true,
+    "account_features": [
+      "PROFILE",
+      "ACTIVITY",
+      "BADGES",
+      "COMMUNITY_ACCESS",
+      "PORTAL_NOTIFICATIONS"
+    ]
+  },
+  "backend_required": [
+    "PORTAL_AUTH_SERVICE",
+    "PORTAL_ACCOUNT_LEDGER",
+    "PORTAL_INVENTORY_LEDGER",
+    "PORTAL_GAME_CURRENCY_LEDGER",
+    "PORTAL_GENESIS_BROKER",
+    "PORTAL_GRAPH_STORE",
+    "PORTAL_HELIOS_ADAPTER",
+    "PORTAL_MARKET_ADAPTER"
+  ],
+  "activation_gate": [
+    "LOGIN_VERIFIED_SERVER_SIDE",
+    "DURABLE_ACCOUNT_LEDGER_PASS",
+    "DURABLE_BALANCE_INVENTORY_PASS",
+    "GENESIS_START_TURN_SAVE_RELOAD_PASS",
+    "HELIOS_BALANCE_INVENTORY_RECONCILE_PASS",
+    "HRAIN_GRAPH_SAVE_RELOAD_PASS",
+    "INAIHR_SYNTH_SAVE_RELOAD_PASS",
+    "MARKET_ENTITLEMENT_ACCOUNT_BIND_PASS",
+    "SESSION_FIXATION_CSRF_REPLAY_NEGATIVE_CONTROLS_PASS"
+  ]
+}
