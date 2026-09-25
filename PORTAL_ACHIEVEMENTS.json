@@ -1,0 +1,119 @@
+{
+  "schema": "janus.portal.achievement_catalog.v1",
+  "version": "1.0.0",
+  "status": "FROZEN_V1",
+  "achievements": [
+    {
+      "id": "FIRST_FOLLOWER",
+      "title": "First Follower",
+      "description": "Join the JANUS group/account ecosystem.",
+      "trigger": "ACCOUNT_CREATED_AND_GROUP_ACCESS_GRANTED",
+      "reward": {
+        "xp": 50,
+        "janus_coin": 50,
+        "badge": "FIRST_FOLLOWER"
+      }
+    },
+    {
+      "id": "GENESIS_BORN",
+      "title": "Genesis Born",
+      "description": "Create your first authoritative Genesis world/session.",
+      "trigger": "GENESIS_SESSION_STARTED",
+      "reward": {
+        "xp": 75,
+        "janus_coin": 75,
+        "item": "GENESIS_ORIGIN_SIGIL"
+      }
+    },
+    {
+      "id": "SEVEN_DAYS",
+      "title": "Seven Suns",
+      "description": "Reach a 7-day daily reward streak.",
+      "trigger": "DAILY_STREAK_7",
+      "reward": {
+        "xp": 100,
+        "janus_coin": 150,
+        "item": "SEVEN_SUN_CHEST"
+      }
+    },
+    {
+      "id": "MIND_MAPPER",
+      "title": "Mind Mapper",
+      "description": "Save your first HRaiN graph revision.",
+      "trigger": "HRAIN_GRAPH_REVISION_1",
+      "reward": {
+        "xp": 50,
+        "janus_coin": 40,
+        "badge": "MIND_MAPPER"
+      }
+    },
+    {
+      "id": "SYNTH_WEAVER",
+      "title": "Synth Weaver",
+      "description": "Accept your first iNaiHR synthesis into your graph.",
+      "trigger": "INAIHR_ACCEPTED_SYNTH_1",
+      "reward": {
+        "xp": 60,
+        "janus_coin": 50,
+        "badge": "SYNTH_WEAVER"
+      }
+    },
+    {
+      "id": "MARKET_SCOUT",
+      "title": "Market Scout",
+      "description": "Complete the one first-free JANUS.SEARCH roundtrip.",
+      "trigger": "MARKET_FIRST_FREE_COMPLETE",
+      "reward": {
+        "xp": 75,
+        "janus_coin": 75,
+        "badge": "MARKET_SCOUT"
+      }
+    },
+    {
+      "id": "HELIOS_PILOT",
+      "title": "Helios Pilot",
+      "description": "Complete your first non-cash HELIOS play session.",
+      "trigger": "HELIOS_FIRST_PLAY",
+      "reward": {
+        "xp": 50,
+        "janus_coin": 50,
+        "item": "HELIOS_SOLAR_TOKEN_GAME_ITEM"
+      }
+    },
+    {
+      "id": "COMMUNITY_STREAK_7",
+      "title": "Community Pulse",
+      "description": "Seven distinct UTC days with eligible group participation.",
+      "trigger": "GROUP_ACTIVE_DAYS_7",
+      "reward": {
+        "xp": 120,
+        "janus_coin": 150,
+        "badge": "COMMUNITY_PULSE"
+      }
+    },
+    {
+      "id": "CROSS_ORGAN_5",
+      "title": "Janus Traveller",
+      "description": "Use five distinct JANUS organs with receipts.",
+      "trigger": "DISTINCT_ORGANS_5",
+      "reward": {
+        "xp": 150,
+        "janus_coin": 200,
+        "item": "JANUS_TRAVELLER_CLOAK"
+      }
+    },
+    {
+      "id": "CONTRIBUTOR",
+      "title": "Builder",
+      "description": "Have a contribution accepted by a governed group/project workflow.",
+      "trigger": "GROUP_ACCEPTED_CONTRIBUTION_1",
+      "reward": {
+        "xp": 125,
+        "janus_coin": 150,
+        "badge": "BUILDER"
+      }
+    }
+  ],
+  "game_items_have_cash_value": false,
+  "duplicate_unlocks_allowed": false
+}

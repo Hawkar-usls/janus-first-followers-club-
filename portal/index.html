@@ -34,6 +34,12 @@
           <strong id="homeName">Гость</strong>
           <div class="balance"><span>JANUS COIN</span><b id="homeBalance">0</b></div>
           <div class="identity-meta"><span id="homeStatus">LOGIN REQUIRED</span><span id="homeInventory">0 items</span></div>
+          <div class="progress-block">
+            <div class="progress-top"><span>LEVEL <b id="homeLevel">1</b></span><span><b id="homeXp">0</b> XP</span></div>
+            <div class="xp-track"><i id="homeXpBar"></i></div>
+            <div class="daily-row"><span>🔥 <b id="homeStreak">0</b> day streak</span><button id="dailyClaim" type="button">Daily reward</button></div>
+            <small id="dailyState">Login to claim.</small>
+          </div>
         </div>
       </div>
       <div class="panel-grid">
@@ -83,6 +89,19 @@
     <section class="view" data-view="INAIHR">
       <div class="section-head"><div><span class="eyebrow">iNaiHR</span><h2>AI Mind Map</h2></div><span class="boundary">AI synthesis · persistent graph</span></div>
       <iframe class="organ-frame" title="iNaiHR" data-src="https://hawkar-usls.github.io/iNaiHR/"></iframe>
+    </section>
+
+    <section class="view" data-view="REWARDS">
+      <div class="section-head"><div><span class="eyebrow">JANUS PROGRESSION</span><h2>Rewards & Achievements</h2></div><div class="wallet"><span>STREAK</span><b id="rewardsStreak">0</b></div></div>
+      <div class="rewards-summary">
+        <article class="reward-stat"><span>LEVEL</span><b id="rewardsLevel">1</b></article>
+        <article class="reward-stat"><span>XP</span><b id="rewardsXp">0</b></article>
+        <article class="reward-stat"><span>JANUS COIN</span><b id="rewardsCoin">0</b></article>
+        <article class="reward-stat"><span>ACHIEVEMENTS</span><b id="rewardsAchievementCount">0</b></article>
+      </div>
+      <div class="reward-actions"><button id="rewardsDailyClaim" class="primary" type="button">Claim daily reward</button><span id="rewardsDailyState" class="boundary">server verified</span></div>
+      <div id="achievementGrid" class="achievement-grid"></div>
+      <div class="reward-history-wrap"><h3>Recent reward receipts</h3><div id="rewardHistory" class="reward-history"></div></div>
     </section>
 
     <section class="view" data-view="INVENTORY">

@@ -1,8 +1,8 @@
 {
   "schema": "janus.portal.architecture.v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "recorded_at": "2026-09-25",
-  "status": "PORTAL_V1_IMPLEMENTATION_SHELL_ACCOUNT_BACKEND_PENDING",
+  "status": "PORTAL_V1_SHELL_PLUS_REWARD_ENGINE_READY_ACCOUNT_BACKEND_PENDING",
   "canonical_frontend_target": "https://tg-pomoyka.hawkarlol.chatgpt.site",
   "source_portal_repository": "Hawkar-usls/janus-first-followers-club-",
   "home_after_login": "GROUP",
@@ -17,7 +17,9 @@
     "LOCAL_STORAGE_IS_CACHE_OR_MIGRATION_ONLY_NOT_AUTHORITY",
     "GAME_CURRENCY_HAS_NO_CASH_VALUE",
     "COMMERCIAL_PAYMENT_RAILS_ARE_SEPARATE_FROM_GAME_CURRENCY",
-    "NO_RUNTIME_CLAIM_WITHOUT_HEALTH_AND_RECEIPT"
+    "NO_RUNTIME_CLAIM_WITHOUT_HEALTH_AND_RECEIPT",
+    "REWARDS_REQUIRE_SERVER_RECEIPTS",
+    "RAW_ACTIVITY_VOLUME_NE_REWARD"
   ],
   "tabs": [
     {
@@ -57,6 +59,12 @@
       "title": "iNaiHR",
       "source": "Hawkar-usls/iNaiHR",
       "mode": "PORTAL_ADAPTER"
+    },
+    {
+      "id": "REWARDS",
+      "title": "Rewards",
+      "source": "PORTAL_REWARD_LEDGER",
+      "mode": "NATIVE_PORTAL"
     },
     {
       "id": "INVENTORY",
@@ -186,7 +194,10 @@
     "PORTAL_GENESIS_BROKER",
     "PORTAL_GRAPH_STORE",
     "PORTAL_HELIOS_ADAPTER",
-    "PORTAL_MARKET_ADAPTER"
+    "PORTAL_MARKET_ADAPTER",
+    "PORTAL_REWARD_LEDGER",
+    "PORTAL_ACTIVITY_RECEIPT_INGEST",
+    "PORTAL_GAME_REWARD_ADAPTER"
   ],
   "activation_gate": [
     "LOGIN_VERIFIED_SERVER_SIDE",
@@ -197,6 +208,22 @@
     "HRAIN_GRAPH_SAVE_RELOAD_PASS",
     "INAIHR_SYNTH_SAVE_RELOAD_PASS",
     "MARKET_ENTITLEMENT_ACCOUNT_BIND_PASS",
-    "SESSION_FIXATION_CSRF_REPLAY_NEGATIVE_CONTROLS_PASS"
-  ]
+    "SESSION_FIXATION_CSRF_REPLAY_NEGATIVE_CONTROLS_PASS",
+    "DAILY_REWARD_REPLAY_CAP_NEGATIVE_CONTROLS_PASS",
+    "GROUP_ACTIVITY_SOURCE_RECEIPT_BIND_PASS",
+    "GENESIS_REWARD_CONSUMPTION_IDEMPOTENCY_PASS",
+    "HELIOS_REWARD_NO_RNG_OR_CASH_EFFECT_PASS"
+  ],
+  "progression": {
+    "reward_policy": "PORTAL_REWARD_POLICY.json",
+    "achievements": "PORTAL_ACHIEVEMENTS.json",
+    "xp_server_authority": true,
+    "daily_reward_server_authority": true,
+    "group_activity_rewards": true,
+    "cross_ecosystem_rewards": true,
+    "raw_message_count_rewarded": false,
+    "bot_activity_default": "NO_REWARD",
+    "reward_mutations_append_only": true
+  },
+  "game_reward_bridge": "PORTAL_GAME_REWARD_BRIDGE.json"
 }

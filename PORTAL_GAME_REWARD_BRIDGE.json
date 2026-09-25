@@ -1,0 +1,102 @@
+{
+  "schema": "janus.portal.game_reward_bridge.v1",
+  "version": "1.0.0",
+  "recorded_at": "2026-09-25",
+  "status": "CONTRACT_READY_ENGINE_ADAPTERS_PENDING",
+  "purpose": "Turn verified Portal reward receipts into account-bound non-cash bonuses usable inside Genesis and HELIOS without modifying real-money odds or bypassing engine authority.",
+  "authority": {
+    "source": "PORTAL_REWARD_LEDGER",
+    "client_can_mint": false,
+    "client_can_choose_reward_payload": false,
+    "engine_must_acknowledge_consumption": true,
+    "consumption_idempotent": true
+  },
+  "grant_types": [
+    "PORTAL_COSMETIC",
+    "GENESIS_ACCOUNT_ITEM",
+    "GENESIS_NON_CASH_CONSUMABLE",
+    "HELIOS_DEMO_SPIN_ENERGY",
+    "HELIOS_COSMETIC",
+    "BADGE"
+  ],
+  "grants": {
+    "PORTAL_DAILY_CHEST": {
+      "namespace": "PORTAL",
+      "type": "ACCOUNT_ITEM",
+      "tradeable": false,
+      "cash_value": false,
+      "open_route": "POST /api/portal/rewards/items/PORTAL_DAILY_CHEST/open",
+      "contents_policy": "SERVER_FROZEN_NON_CASH_DROP_TABLE",
+      "provisional_contents": [
+        {
+          "id": "GENESIS_TRAVEL_RATION",
+          "weight": 40,
+          "kind": "GENESIS_NON_CASH_CONSUMABLE"
+        },
+        {
+          "id": "HELIOS_SPIN_ENERGY_1",
+          "weight": 30,
+          "kind": "HELIOS_DEMO_SPIN_ENERGY"
+        },
+        {
+          "id": "PORTAL_PROFILE_SHARD",
+          "weight": 20,
+          "kind": "PORTAL_COSMETIC"
+        },
+        {
+          "id": "GENESIS_MEMORY_FRAGMENT",
+          "weight": 10,
+          "kind": "GENESIS_ACCOUNT_ITEM"
+        }
+      ],
+      "rng_cash_value": false,
+      "affects_real_money_odds": false
+    },
+    "GENESIS_ORIGIN_SIGIL": {
+      "namespace": "GENESIS",
+      "type": "GENESIS_ACCOUNT_ITEM",
+      "effect": "COSMETIC_PLUS_LORE_FLAG",
+      "tradeable": false,
+      "cash_value": false
+    },
+    "SEVEN_SUN_CHEST": {
+      "namespace": "PORTAL",
+      "type": "ACCOUNT_ITEM",
+      "effect": "GRANT_3_HELIOS_DEMO_SPIN_ENERGY_AND_GENESIS_SEVEN_SUN_BANNER",
+      "tradeable": false,
+      "cash_value": false,
+      "affects_real_money_odds": false
+    },
+    "HELIOS_SOLAR_TOKEN_GAME_ITEM": {
+      "namespace": "HELIOS",
+      "type": "HELIOS_COSMETIC",
+      "effect": "SOLAR_PROFILE_BADGE_ONLY",
+      "tradeable": false,
+      "cash_value": false,
+      "affects_rng": false
+    },
+    "JANUS_TRAVELLER_CLOAK": {
+      "namespace": "GENESIS",
+      "type": "GENESIS_ACCOUNT_ITEM",
+      "effect": "COSMETIC_TRAVELLER_CLOAK",
+      "tradeable": false,
+      "cash_value": false
+    }
+  },
+  "daily_bonus_examples": {
+    "day_1": "JANUS_COIN_ONLY",
+    "day_3": "JANUS_COIN_PLUS_XP",
+    "day_7": "PORTAL_DAILY_CHEST_PLUS_COIN_PLUS_XP",
+    "community_streak_7": "SEVEN_SUN_CHEST"
+  },
+  "firewalls": [
+    "PORTAL_REWARD_NE_CASH",
+    "HELIOS_REWARD_NE_REAL_MONEY_WAGER",
+    "REWARD_NE_RNG_WEIGHT",
+    "REWARD_NE_RTP_CHANGE",
+    "REWARD_NE_PERSONAL_JACKPOT_WEIGHT",
+    "GENESIS_BONUS_REQUIRES_GENESIS_ENGINE_CONSUMPTION_RECEIPT",
+    "HELIOS_BONUS_REQUIRES_HELIOS_ADAPTER_CONSUMPTION_RECEIPT",
+    "DUPLICATE_CONSUMPTION_IDEMPOTENT"
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "schema": "janus.portal.api_contract.v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "status": "CONTRACT_FROZEN_IMPLEMENTATION_PENDING",
   "session": {
     "cookie": "janus_portal_session",
@@ -115,6 +115,51 @@
     "GET /api/portal/ecosystem": {
       "auth": "OPTIONAL",
       "returns": "repo_catalog"
+    },
+    "GET /api/portal/rewards/status": {
+      "auth": "SESSION",
+      "returns": "xp+level+daily+achievements+recent_reward_receipts"
+    },
+    "POST /api/portal/rewards/daily/claim": {
+      "auth": "SESSION",
+      "idempotency_required": true,
+      "server_clock_authority": true,
+      "effect": "APPEND_REWARD_LEDGER_AND_OPTIONAL_INVENTORY_REWARD"
+    },
+    "GET /api/portal/achievements": {
+      "auth": "SESSION",
+      "returns": "catalog+unlocked+progress"
+    },
+    "POST /api/portal/internal/activity": {
+      "auth": "INTERNAL_SIGNED_SOURCE_ONLY",
+      "browser_access": false,
+      "idempotency_required": true,
+      "requires": "SOURCE_EVENT_ID+SOURCE_RECEIPT_DIGEST+ACCOUNT_BINDING",
+      "effect": "EVALUATE_ACTIVITY_REWARD_CAPS_AND_ACHIEVEMENTS"
+    },
+    "POST /api/portal/internal/achievement/evaluate": {
+      "auth": "INTERNAL_ENGINE_ONLY",
+      "browser_access": false,
+      "idempotency_required": true,
+      "effect": "EVALUATE_ONE_TIME_ACHIEVEMENT_UNLOCKS"
+    },
+    "POST /api/portal/rewards/items/:item_id/open": {
+      "auth": "SESSION",
+      "idempotency_required": true,
+      "requires": "ACCOUNT_OWNS_ITEM+GAME_REWARD_BRIDGE_RULE",
+      "effect": "APPEND_ITEM_CONSUMPTION_AND_SERVER_MINT_NON_CASH_CONTENTS"
+    },
+    "POST /api/portal/genesis/reward/consume": {
+      "auth": "SESSION",
+      "idempotency_required": true,
+      "requires": "PORTAL_REWARD_GRANT+GENESIS_ENGINE_ACK",
+      "effect": "CONSUME_ACCOUNT_BOUND_GENESIS_BONUS"
+    },
+    "POST /api/portal/helios/reward/consume": {
+      "auth": "SESSION",
+      "idempotency_required": true,
+      "requires": "PORTAL_REWARD_GRANT+HELIOS_ADAPTER_ACK",
+      "effect": "CONSUME_NON_CASH_HELIOS_BONUS"
     }
   },
   "mutation_rules": [
@@ -126,6 +171,11 @@
     "ENGINE_RECEIPT_REQUIRED_FOR_ENGINE_REWARD",
     "HELIOS_RANDOM_EVENT_RECEIPT_REQUIRED_FOR_RANDOM_REWARD",
     "GENESIS_SAVE_DIGEST_BOUND_TO_ACCOUNT_AND_WORLD",
-    "MARKET_COMMERCIAL_PAYMENT_NOT_MINT_JANUS_COIN"
+    "MARKET_COMMERCIAL_PAYMENT_NOT_MINT_JANUS_COIN",
+    "REWARD_EVENT_ID_UNIQUE_FOREVER",
+    "DAILY_CLAIM_USES_SERVER_UTC_DATE",
+    "RAW_MESSAGE_COUNT_CANNOT_MULTIPLY_REWARD",
+    "BOT_ACTIVITY_DEFAULT_NO_REWARD",
+    "REWARD_REVERSAL_REQUIRES_APPEND_ONLY_COMPENSATING_ENTRY"
   ]
 }

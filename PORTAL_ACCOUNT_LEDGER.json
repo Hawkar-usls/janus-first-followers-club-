@@ -1,6 +1,6 @@
 {
   "schema": "janus.portal.account_ledger.v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "status": "SERVER_AUTHORITY_REQUIRED",
   "account": {
     "account_id": "UUIDV7_OR_EQUIVALENT_SERVER_GENERATED",
@@ -53,7 +53,9 @@
   "community": {
     "member_since": null,
     "badges": [],
-    "notifications_unread": 0
+    "notifications_unread": 0,
+    "activity_reward_policy": "PORTAL_REWARD_POLICY.json",
+    "achievement_catalog": "PORTAL_ACHIEVEMENTS.json"
   },
   "ledger_rules": [
     "EVERY_BALANCE_MUTATION_APPEND_ONLY",
@@ -63,6 +65,28 @@
     "CLIENT_CANNOT_MINT_ITEM_DIRECTLY",
     "GAME_REWARD_REQUIRES_ENGINE_RECEIPT",
     "HELIOS_RANDOM_REWARD_REQUIRES_RANDOM_EVENT_RECEIPT",
-    "MARKET_PAYMENT_NE_GAME_COIN"
-  ]
+    "MARKET_PAYMENT_NE_GAME_COIN",
+    "EVERY_REWARD_MUTATION_APPEND_ONLY",
+    "SOURCE_EVENT_ID_CAN_REWARD_AT_MOST_ONCE",
+    "RAW_MESSAGE_VOLUME_NE_REWARD",
+    "CLIENT_CLOCK_NE_DAILY_AUTHORITY",
+    "JANUS_COIN_NE_MONEY"
+  ],
+  "progression": {
+    "xp": 0,
+    "level": 1,
+    "achievements": [],
+    "achievement_receipts": [],
+    "daily": {
+      "last_claim_utc_date": null,
+      "streak": 0,
+      "total_claims": 0
+    },
+    "activity": {
+      "rewarded_event_ids": [],
+      "active_days": [],
+      "organ_receipts": [],
+      "counters": {}
+    }
+  }
 }
