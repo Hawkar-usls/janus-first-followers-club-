@@ -11,6 +11,7 @@ on:
       - 'tests/test_portal_rewards.py'
       - 'portal_backend/**'
       - 'PORTAL_ACTIVITY_BRIDGE.json'
+      - 'PORTAL_GAME_REWARD_BRIDGE.json'
       - 'PORTAL_ACHIEVEMENTS.json'
       - 'PORTAL_REWARD_POLICY.json'
       - 'portal/**'
@@ -26,6 +27,7 @@ on:
       - 'tests/test_portal_rewards.py'
       - 'portal_backend/**'
       - 'PORTAL_ACTIVITY_BRIDGE.json'
+      - 'PORTAL_GAME_REWARD_BRIDGE.json'
       - 'PORTAL_ACHIEVEMENTS.json'
       - 'PORTAL_REWARD_POLICY.json'
       - 'portal/**'
@@ -54,6 +56,7 @@ jobs:
           python -m json.tool PORTAL_REWARD_POLICY.json >/dev/null
           python -m json.tool PORTAL_ACHIEVEMENTS.json >/dev/null
           python -m json.tool PORTAL_ACTIVITY_BRIDGE.json >/dev/null
+          python -m json.tool PORTAL_GAME_REWARD_BRIDGE.json >/dev/null
           python -m json.tool portal/ecosystem-catalog.json >/dev/null
       - name: Validate portal browser code
         run: |
@@ -71,6 +74,7 @@ jobs:
           r=json.load(open('PORTAL_REWARD_POLICY.json',encoding='utf-8'))
           ach=json.load(open('PORTAL_ACHIEVEMENTS.json',encoding='utf-8'))
           ab=json.load(open('PORTAL_ACTIVITY_BRIDGE.json',encoding='utf-8'))
+          gr=json.load(open('PORTAL_GAME_REWARD_BRIDGE.json',encoding='utf-8'))
           assert a['home_after_login']=='GROUP'
           assert a['economy']['currency']=='JANUS_COIN'
           assert a['economy']['cash_value'] is False
@@ -96,6 +100,9 @@ jobs:
           assert ach['duplicate_unlocks_allowed'] is False
           assert ab['event_envelope']['browser_may_submit_directly'] is False
           assert ab['sources']['GROUP_TELEGRAM']['raw_message_count_rewarded'] is False
+          assert gr['authority']['client_can_mint'] is False
+          assert gr['grants']['PORTAL_DAILY_CHEST']['affects_real_money_odds'] is False
+          assert 'REWARD_NE_RNG_WEIGHT' in gr['firewalls']
           print('JANUS_PORTAL_CONTRACT=PASS')
           print('GROUP_DEFAULT_HOME=TRUE')
           print('SERVER_LEDGER_AUTHORITY=TRUE')
