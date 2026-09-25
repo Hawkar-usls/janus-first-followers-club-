@@ -1,0 +1,72 @@
+name: JANUS Portal Integrity
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'PORTAL_ARCHITECTURE.json'
+      - 'PORTAL_ACCOUNT_LEDGER.json'
+      - 'PORTAL_API_CONTRACT.json'
+      - 'PORTAL_ORGAN_BRIDGE.json'
+      - 'portal/**'
+      - 'index.html'
+      - '.github/workflows/janus-portal-integrity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'PORTAL_ARCHITECTURE.json'
+      - 'PORTAL_ACCOUNT_LEDGER.json'
+      - 'PORTAL_API_CONTRACT.json'
+      - 'PORTAL_ORGAN_BRIDGE.json'
+      - 'portal/**'
+      - 'index.html'
+      - '.github/workflows/janus-portal-integrity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portal-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate JSON
+        run: |
+          python -m json.tool PORTAL_ARCHITECTURE.json >/dev/null
+          python -m json.tool PORTAL_ACCOUNT_LEDGER.json >/dev/null
+          python -m json.tool PORTAL_API_CONTRACT.json >/dev/null
+          python -m json.tool PORTAL_ORGAN_BRIDGE.json >/dev/null
+          python -m json.tool portal/ecosystem-catalog.json >/dev/null
+      - name: Enforce portal economic and state authority
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          a=json.load(open('PORTAL_ARCHITECTURE.json',encoding='utf-8'))
+          l=json.load(open('PORTAL_ACCOUNT_LEDGER.json',encoding='utf-8'))
+          b=json.load(open('PORTAL_ORGAN_BRIDGE.json',encoding='utf-8'))
+          assert a['home_after_login']=='GROUP'
+          assert a['economy']['currency']=='JANUS_COIN'
+          assert a['economy']['cash_value'] is False
+          assert a['economy']['purchasable_with_crypto'] is False
+          assert a['economy']['withdrawable'] is False
+          assert a['economy']['commercial_market_balance']=='SEPARATE'
+          assert a['inventory']['server_authority'] is True
+          assert 'GENESIS' in a['economy']['shared_across']
+          assert 'HELIOS_SLOT' in a['economy']['shared_across']
+          assert l['balances']['JANUS_COIN']['cash_value'] is False
+          assert 'CLIENT_CANNOT_SET_BALANCE_DIRECTLY' in l['ledger_rules']
+          assert b['organ_policies']['HELIOS']['forbidden'] == ['SET_BALANCE','SET_INVENTORY','REAL_MONEY_WAGER','CASH_OUT']
+          js=pathlib.Path('portal/portal.js').read_text(encoding='utf-8')
+          assert "localStorage.setItem" not in js
+          assert "/api/portal/genesis/turn" in js
+          assert "ONE_LOGIN_ONE_PORTAL" in a['principles']
+          print('JANUS_PORTAL_CONTRACT=PASS')
+          print('GROUP_DEFAULT_HOME=TRUE')
+          print('SERVER_LEDGER_AUTHORITY=TRUE')
+          print('REAL_MONEY_SLOT=FALSE')
+          PY
