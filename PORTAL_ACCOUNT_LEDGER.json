@@ -1,0 +1,68 @@
+{
+  "schema": "janus.portal.account_ledger.v1",
+  "version": "1.0.0",
+  "status": "SERVER_AUTHORITY_REQUIRED",
+  "account": {
+    "account_id": "UUIDV7_OR_EQUIVALENT_SERVER_GENERATED",
+    "display_name": "USER_CONTROLLED_ESCAPED",
+    "created_at": "ISO8601",
+    "linked_principals": [],
+    "roles": [
+      "MEMBER"
+    ],
+    "flags": []
+  },
+  "balances": {
+    "JANUS_COIN": {
+      "type": "INTEGER_NONTRANSFERABLE_GAME_CREDIT",
+      "available": 0,
+      "reserved": 0,
+      "cash_value": false,
+      "withdrawable": false,
+      "transferable": false
+    }
+  },
+  "inventory": [],
+  "genesis": {
+    "session_id": null,
+    "world_id": null,
+    "turn": 0,
+    "current_location": null,
+    "portable_save_digest": null,
+    "updated_at": null
+  },
+  "hrain": {
+    "graph_id": null,
+    "revision": 0,
+    "updated_at": null
+  },
+  "inaihr": {
+    "graph_id": null,
+    "revision": 0,
+    "updated_at": null
+  },
+  "helios": {
+    "profile_id": null,
+    "spin_energy": 0,
+    "updated_at": null
+  },
+  "market": {
+    "first_free_search_consumed": false,
+    "linked_market_principal_ids": []
+  },
+  "community": {
+    "member_since": null,
+    "badges": [],
+    "notifications_unread": 0
+  },
+  "ledger_rules": [
+    "EVERY_BALANCE_MUTATION_APPEND_ONLY",
+    "EVERY_INVENTORY_MUTATION_APPEND_ONLY",
+    "EVERY_MUTATION_IDEMPOTENT",
+    "CLIENT_CANNOT_SET_BALANCE_DIRECTLY",
+    "CLIENT_CANNOT_MINT_ITEM_DIRECTLY",
+    "GAME_REWARD_REQUIRES_ENGINE_RECEIPT",
+    "HELIOS_RANDOM_REWARD_REQUIRES_RANDOM_EVENT_RECEIPT",
+    "MARKET_PAYMENT_NE_GAME_COIN"
+  ]
+}
