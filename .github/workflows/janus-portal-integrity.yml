@@ -8,6 +8,11 @@ on:
       - 'PORTAL_ACCOUNT_LEDGER.json'
       - 'PORTAL_API_CONTRACT.json'
       - 'PORTAL_ORGAN_BRIDGE.json'
+      - 'tests/test_portal_rewards.py'
+      - 'portal_backend/**'
+      - 'PORTAL_ACTIVITY_BRIDGE.json'
+      - 'PORTAL_ACHIEVEMENTS.json'
+      - 'PORTAL_REWARD_POLICY.json'
       - 'portal/**'
       - 'index.html'
       - '.github/workflows/janus-portal-integrity.yml'
@@ -18,6 +23,11 @@ on:
       - 'PORTAL_ACCOUNT_LEDGER.json'
       - 'PORTAL_API_CONTRACT.json'
       - 'PORTAL_ORGAN_BRIDGE.json'
+      - 'tests/test_portal_rewards.py'
+      - 'portal_backend/**'
+      - 'PORTAL_ACTIVITY_BRIDGE.json'
+      - 'PORTAL_ACHIEVEMENTS.json'
+      - 'PORTAL_REWARD_POLICY.json'
       - 'portal/**'
       - 'index.html'
       - '.github/workflows/janus-portal-integrity.yml'
@@ -41,7 +51,16 @@ jobs:
           python -m json.tool PORTAL_ACCOUNT_LEDGER.json >/dev/null
           python -m json.tool PORTAL_API_CONTRACT.json >/dev/null
           python -m json.tool PORTAL_ORGAN_BRIDGE.json >/dev/null
+          python -m json.tool PORTAL_REWARD_POLICY.json >/dev/null
+          python -m json.tool PORTAL_ACHIEVEMENTS.json >/dev/null
+          python -m json.tool PORTAL_ACTIVITY_BRIDGE.json >/dev/null
           python -m json.tool portal/ecosystem-catalog.json >/dev/null
+      - name: Validate portal browser code
+        run: |
+          node --check portal/portal.js
+      - name: Run reward engine tests
+        run: |
+          PYTHONPATH=. python -m unittest -v tests.test_portal_rewards
       - name: Enforce portal economic and state authority
         run: |
           python - <<'PY'
@@ -49,6 +68,9 @@ jobs:
           a=json.load(open('PORTAL_ARCHITECTURE.json',encoding='utf-8'))
           l=json.load(open('PORTAL_ACCOUNT_LEDGER.json',encoding='utf-8'))
           b=json.load(open('PORTAL_ORGAN_BRIDGE.json',encoding='utf-8'))
+          r=json.load(open('PORTAL_REWARD_POLICY.json',encoding='utf-8'))
+          ach=json.load(open('PORTAL_ACHIEVEMENTS.json',encoding='utf-8'))
+          ab=json.load(open('PORTAL_ACTIVITY_BRIDGE.json',encoding='utf-8'))
           assert a['home_after_login']=='GROUP'
           assert a['economy']['currency']=='JANUS_COIN'
           assert a['economy']['cash_value'] is False
@@ -65,8 +87,19 @@ jobs:
           assert "localStorage.setItem" not in js
           assert "/api/portal/genesis/turn" in js
           assert "ONE_LOGIN_ONE_PORTAL" in a['principles']
+          assert a['progression']['raw_message_count_rewarded'] is False
+          assert r['currency']['cash_value'] is False
+          assert r['currency']['purchasable_with_crypto'] is False
+          assert r['daily_reward']['one_claim_per_account_per_utc_day'] is True
+          assert r['anti_abuse']['raw_message_volume_multiplier'] == 0
+          assert r['anti_abuse']['bot_activity_default'] == 'NO_REWARD'
+          assert ach['duplicate_unlocks_allowed'] is False
+          assert ab['event_envelope']['browser_may_submit_directly'] is False
+          assert ab['sources']['GROUP_TELEGRAM']['raw_message_count_rewarded'] is False
           print('JANUS_PORTAL_CONTRACT=PASS')
           print('GROUP_DEFAULT_HOME=TRUE')
           print('SERVER_LEDGER_AUTHORITY=TRUE')
           print('REAL_MONEY_SLOT=FALSE')
+          print('REWARD_ENGINE=RECEIPT_BOUND')
+          print('RAW_MESSAGE_VOLUME_REWARD=FALSE')
           PY
