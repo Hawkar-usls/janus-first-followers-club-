@@ -1,9 +1,9 @@
 const API=(window.JANUS_PORTAL_API||'').replace(/\/$/,'');
 const tabs=[
   ['GROUP','Группа'],['GENESIS','Genesis'],['MARKET','Market'],['HELIOS','HELIOS'],
-  ['HRAIN','HRaiN'],['INAIHR','iNaiHR'],['INVENTORY','Inventory'],['PROFILE','Profile'],['ECOSYSTEM','Все JANUS']
+  ['HRAIN','HRaiN'],['INAIHR','iNaiHR'],['REWARDS','Rewards'],['INVENTORY','Inventory'],['PROFILE','Profile'],['ECOSYSTEM','Все JANUS']
 ];
-const state={session:null,account:null,catalog:null,active:'GROUP',genesis:null};
+const state={session:null,account:null,catalog:null,active:'GROUP',genesis:null,rewards:null};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 
 function endpoint(path){return API+path}
@@ -26,6 +26,7 @@ function show(id){
     if(frame&&!frame.src)frame.src=frame.dataset.src;
   }
   if(id==='ECOSYSTEM')renderEcosystem();
+  if(id==='REWARDS'){renderRewards();refreshRewards();}
   if(id==='INVENTORY')renderInventory();
   if(id==='PROFILE')renderProfile();
 }
@@ -44,7 +45,16 @@ function renderAccount(){
   $('#homeStatus').textContent=a?'SIGNED IN':'LOGIN REQUIRED';
   $('#homeInventory').textContent=`${items.length} items`;
   $('#avatar').textContent=(name[0]||'J').toUpperCase();
-  renderInventory(); renderProfile(); renderGenesisState(a?.genesis);
+  const prog=a?.progression||{};
+  const xp=Number(prog.xp||0), level=Number(prog.level||1), streak=Number(prog.daily?.streak||0);
+  $('#homeXp').textContent=xp.toLocaleString();
+  $('#homeLevel').textContent=level;
+  $('#homeStreak').textContent=streak;
+  const levelFloor=Math.max(0,Math.pow(Math.max(0,level-1),2)*100);
+  const levelCeil=Math.max(levelFloor+1,Math.pow(level,2)*100);
+  const pct=Math.max(0,Math.min(100,((xp-levelFloor)/(levelCeil-levelFloor))*100));
+  $('#homeXpBar').style.width=pct+'%';
+  renderInventory(); renderProfile(); renderGenesisState(a?.genesis); renderRewards();
 }
 function renderInventory(){
   const host=$('#inventoryGrid'); if(!host)return;
@@ -60,9 +70,77 @@ function renderProfile(){
     ['Account',a.account_id],['Name',a.display_name],['JANUS Coin',a.balances?.JANUS_COIN?.available??0],
     ['Genesis world',a.genesis?.world_id||'not started'],['Genesis turn',a.genesis?.turn??0],
     ['HRaiN graph',a.hrain?.graph_id||'not created'],['iNaiHR graph',a.inaihr?.graph_id||'not created'],
+    ['Level',a.progression?.level??1],['XP',a.progression?.xp??0],
+    ['Daily streak',a.progression?.daily?.streak??0],
+    ['Achievements',(a.progression?.achievements||[]).length],
     ['First free Market search',a.market?.first_free_search_consumed?'used':'available']
   ].map(([k,v])=>`<div class="profile-row"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('');
 }
+function rewardStatusFromAccount(){
+  const p=state.account?.progression||{};
+  return {
+    xp:Number(p.xp||0),
+    level:Number(p.level||1),
+    daily:p.daily||{streak:0,last_claim_utc_date:null,total_claims:0},
+    unlocked:p.achievements||[],
+    recent_reward_receipts:p.recent_reward_receipts||[],
+    achievements:[]
+  };
+}
+function renderRewards(){
+  const host=$('#achievementGrid'); if(!host)return;
+  const r=state.rewards||rewardStatusFromAccount();
+  const coin=Number(state.account?.balances?.JANUS_COIN?.available||0);
+  $('#rewardsLevel').textContent=Number(r.level||1);
+  $('#rewardsXp').textContent=Number(r.xp||0).toLocaleString();
+  $('#rewardsCoin').textContent=coin.toLocaleString();
+  $('#rewardsStreak').textContent=Number(r.daily?.streak||0);
+  const unlocked=new Set((r.unlocked||[]).map(x=>typeof x==='string'?x:x.id));
+  $('#rewardsAchievementCount').textContent=unlocked.size;
+  const catalog=r.achievements||[];
+  host.innerHTML=catalog.length?catalog.map(a=>{
+    const yes=unlocked.has(a.id);
+    const rw=a.reward||{};
+    const reward=[rw.janus_coin?rw.janus_coin+' JC':'',rw.xp?rw.xp+' XP':'',rw.item||rw.badge||''].filter(Boolean).join(' · ');
+    return `<article class="achievement-card ${yes?'unlocked':'locked'}"><div class="ach-state">${yes?'◆ UNLOCKED':'◇ LOCKED'}</div><h4>${esc(a.title||a.id)}</h4><p>${esc(a.description||'')}</p><small>${esc(reward)}</small></article>`;
+  }).join(''):'<div class="system-msg">Achievement catalog loads from the account backend.</div>';
+  const rows=r.recent_reward_receipts||[];
+  $('#rewardHistory').innerHTML=rows.length?rows.map(x=>`<div class="reward-row"><b>${esc(x.kind||x.event_type||x.achievement_id||'REWARD')}</b><span>${esc(x.created_at||x.date||'')}</span><em>+${Number(x.janus_coin||x.reward?.janus_coin||0)} JC · +${Number(x.xp||x.reward?.xp||0)} XP</em></div>`).join(''):'<div class="system-msg" style="padding:14px">No reward receipts yet.</div>';
+  const claimed=r.daily?.claimed_today===true;
+  const msg=claimed?'Daily reward already claimed today.':state.account?'Daily reward available once per server UTC day.':'Login to claim.';
+  $('#rewardsDailyState').textContent=msg;
+  $('#dailyState').textContent=msg;
+  $('#rewardsDailyClaim').disabled=!state.account||claimed;
+  $('#dailyClaim').disabled=!state.account||claimed;
+}
+async function refreshRewards(){
+  if(!state.account){state.rewards=null;renderRewards();return}
+  try{
+    const r=await api('/api/portal/rewards/status');
+    state.rewards=r;
+  }catch(_){
+    state.rewards=rewardStatusFromAccount();
+  }
+  renderRewards();
+}
+async function claimDaily(){
+  if(!state.account)return openLogin('Login required for daily rewards.');
+  const key=crypto.randomUUID();
+  for(const id of ['dailyClaim','rewardsDailyClaim']){const b=$('#'+id);if(b)b.disabled=true}
+  try{
+    const r=await api('/api/portal/rewards/daily/claim',{method:'POST',body:JSON.stringify({idempotency_key:key})});
+    if(r?.reward){
+      const bits=[r.reward.janus_coin?('+'+r.reward.janus_coin+' JANUS Coin'):'',r.reward.xp?('+'+r.reward.xp+' XP'):'',r.reward.item?('item '+r.reward.item):''].filter(Boolean);
+      $('#dailyState').textContent='Claimed: '+bits.join(' · ');
+    }
+    await refreshAccount(); await refreshRewards();
+  }catch(e){
+    $('#dailyState').textContent='Daily reward: '+e.message;
+    $('#rewardsDailyState').textContent='Daily reward: '+e.message;
+    await refreshRewards();
+  }
+}
+
 async function renderEcosystem(){
   const host=$('#ecosystemGrid'); if(!host)return;
   if(!state.catalog){try{state.catalog=await fetch('./ecosystem-catalog.json',{cache:'no-store'}).then(r=>r.json())}catch(_){state.catalog={featured:[]}}}
@@ -113,7 +191,7 @@ function openLogin(msg){if(msg)$('#loginState').textContent=msg;$('#loginModal')
 function closeLogin(){$('#loginModal').classList.remove('open')}
 async function refreshAccount(){
   try{const r=await api('/api/portal/me');state.session=r.session||true;state.account=r.account||r;closeLogin()}catch(e){state.session=null;state.account=null;if(e.status!==401)$('#loginState').textContent='Portal backend unavailable: '+e.message}
-  renderAccount();lockPrivateTabs();
+  renderAccount();lockPrivateTabs();if(state.account)refreshRewards();
 }
 async function telegramLogin(){
   const tg=window.Telegram?.WebApp;
@@ -138,6 +216,7 @@ function bind(){
   $('#telegramLogin').onclick=telegramLogin;$('#githubLogin').onclick=githubLogin;$('#passkeyLogin').onclick=passkeyLogin;
   $('#guestPreview').onclick=()=>{closeLogin();show('GROUP')};
   $('#startGenesis').onclick=startGenesis;$('#saveGenesis').onclick=saveGenesis;
+  $('#dailyClaim').onclick=claimDaily;$('#rewardsDailyClaim').onclick=claimDaily;
   $('#genesisForm').onsubmit=e=>{e.preventDefault();const i=$('#genesisInput');const v=i.value.trim();if(v){i.value='';genesisTurn(v)}};
 }
 buildTabs();bind();show('GROUP');refreshAccount();checkGenesisHealth();renderEcosystem();
