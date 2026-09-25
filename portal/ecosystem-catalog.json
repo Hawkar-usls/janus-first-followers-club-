@@ -1,0 +1,77 @@
+{
+  "schema": "janus.portal.ecosystem_catalog.v1",
+  "version": "1.0.0",
+  "source_graph": "../HAWKAR_GITHUB_JANUS_GRAPH.json",
+  "featured": [
+    {
+      "id": "GROUP",
+      "title": "First Followers",
+      "repo": "Hawkar-usls/janus-first-followers-club-",
+      "url": "https://hawkar-usls.github.io/janus-first-followers-club-/",
+      "mode": "NATIVE"
+    },
+    {
+      "id": "GENESIS",
+      "title": "Genesis MMORPG",
+      "repo": "Hawkar-usls/Janus_Genesis",
+      "url": "https://hawkar-usls.github.io/Janus_Genesis/",
+      "mode": "PORTAL_TEXT_API"
+    },
+    {
+      "id": "MARKET",
+      "title": "Machine Market",
+      "repo": "Hawkar-usls/JANUS-MACHINE-MARKET",
+      "url": "https://hawkar-usls.github.io/JANUS-MACHINE-MARKET/",
+      "mode": "EMBED"
+    },
+    {
+      "id": "HELIOS",
+      "title": "HELIOS Slot",
+      "repo": "Hawkar-usls/Janus-HELIOS",
+      "url": "https://hawkar-usls.github.io/Janus-HELIOS/",
+      "mode": "EMBED_WITH_ACCOUNT_ADAPTER"
+    },
+    {
+      "id": "HRAIN",
+      "title": "HRaiN Mind Map",
+      "repo": "Hawkar-usls/Hrain",
+      "url": "https://hawkar-usls.github.io/Hrain/",
+      "mode": "EMBED_WITH_GRAPH_ADAPTER"
+    },
+    {
+      "id": "INAIHR",
+      "title": "iNaiHR AI Mind Map",
+      "repo": "Hawkar-usls/iNaiHR",
+      "url": "https://hawkar-usls.github.io/iNaiHR/",
+      "mode": "EMBED_WITH_GRAPH_ADAPTER"
+    },
+    {
+      "id": "META",
+      "title": "Meta Registry",
+      "repo": "Hawkar-usls/janus-meta-registry",
+      "url": "https://hawkar-usls.github.io/janus-meta-registry/",
+      "mode": "EMBED"
+    },
+    {
+      "id": "FUNDAMENTUM",
+      "title": "Fundamentum",
+      "repo": "Hawkar-usls/Janus-Fundamentum",
+      "url": "https://github.com/Hawkar-usls/Janus-Fundamentum",
+      "mode": "CATALOG"
+    },
+    {
+      "id": "DEMIURGE",
+      "title": "Demiurge",
+      "repo": "Hawkar-usls/Janus-Demiurge",
+      "url": "https://github.com/Hawkar-usls/Janus-Demiurge",
+      "mode": "CATALOG"
+    },
+    {
+      "id": "TOPA",
+      "title": "TOPA",
+      "repo": "Hawkar-usls/TOPA",
+      "url": "https://github.com/Hawkar-usls/TOPA",
+      "mode": "CATALOG"
+    }
+  ]
+}

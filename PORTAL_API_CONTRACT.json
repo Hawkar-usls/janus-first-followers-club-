@@ -1,0 +1,131 @@
+{
+  "schema": "janus.portal.api_contract.v1",
+  "version": "1.0.0",
+  "status": "CONTRACT_FROZEN_IMPLEMENTATION_PENDING",
+  "session": {
+    "cookie": "janus_portal_session",
+    "http_only": true,
+    "secure": true,
+    "same_site": "Lax",
+    "csrf": "DOUBLE_SUBMIT_OR_ORIGIN_BOUND_TOKEN_FOR_MUTATIONS",
+    "rotation": [
+      "LOGIN",
+      "PRIVILEGE_CHANGE",
+      "ACCOUNT_LINK"
+    ]
+  },
+  "routes": {
+    "GET /api/portal/me": {
+      "auth": "OPTIONAL",
+      "returns": "account+session"
+    },
+    "POST /api/portal/auth/telegram": {
+      "auth": "TELEGRAM_INIT_DATA_SERVER_VERIFY",
+      "idempotent": true
+    },
+    "GET /api/portal/auth/github/start": {
+      "auth": "NONE",
+      "effect": "OAUTH_REDIRECT"
+    },
+    "POST /api/portal/auth/passkey/options": {
+      "auth": "NONE_OR_SESSION",
+      "effect": "WEBAUTHN_CHALLENGE"
+    },
+    "POST /api/portal/auth/passkey/verify": {
+      "auth": "WEBAUTHN",
+      "effect": "SESSION_CREATE_OR_LINK"
+    },
+    "POST /api/portal/logout": {
+      "auth": "SESSION",
+      "effect": "SESSION_REVOKE"
+    },
+    "GET /api/portal/inventory": {
+      "auth": "SESSION",
+      "returns": "inventory"
+    },
+    "GET /api/portal/ledger": {
+      "auth": "SESSION",
+      "returns": "bounded_account_ledger"
+    },
+    "POST /api/portal/genesis/start": {
+      "auth": "SESSION",
+      "idempotency_required": true,
+      "engine": "Janus_Genesis hosted gateway"
+    },
+    "POST /api/portal/genesis/turn": {
+      "auth": "SESSION",
+      "idempotency_required": true,
+      "max_text_utf8": 4000,
+      "engine": "Janus_Genesis /v1/session/turn"
+    },
+    "GET /api/portal/genesis/state": {
+      "auth": "SESSION",
+      "engine": "Janus_Genesis /v1/session/state"
+    },
+    "GET /api/portal/genesis/capsule": {
+      "auth": "SESSION",
+      "engine": "Janus_Genesis /v1/session/capsule"
+    },
+    "GET /api/portal/genesis/health": {
+      "auth": "OPTIONAL",
+      "returns": "authoritative_runtime_available"
+    },
+    "GET /api/portal/graphs/hrain": {
+      "auth": "SESSION",
+      "returns": "account_graph"
+    },
+    "PUT /api/portal/graphs/hrain": {
+      "auth": "SESSION",
+      "idempotency_required": true,
+      "optimistic_revision": true
+    },
+    "GET /api/portal/graphs/inaihr": {
+      "auth": "SESSION",
+      "returns": "account_graph"
+    },
+    "PUT /api/portal/graphs/inaihr": {
+      "auth": "SESSION",
+      "idempotency_required": true,
+      "optimistic_revision": true
+    },
+    "POST /api/portal/inaihr/synth": {
+      "auth": "SESSION",
+      "idempotency_required": true,
+      "effect": "PROPOSE_GRAPH_DELTA"
+    },
+    "POST /api/portal/helios/spin": {
+      "auth": "SESSION",
+      "idempotency_required": true,
+      "currency": "JANUS_COIN",
+      "real_money": false
+    },
+    "POST /api/portal/helios/redeem": {
+      "auth": "SESSION",
+      "idempotency_required": true,
+      "effect": "GAME_ITEM_OR_COIN_LEDGER_ONLY"
+    },
+    "GET /api/portal/market/entitlements": {
+      "auth": "SESSION",
+      "returns": "linked_market_entitlements"
+    },
+    "POST /api/portal/market/link": {
+      "auth": "SESSION",
+      "effect": "EXPLICIT_PRINCIPAL_LINK"
+    },
+    "GET /api/portal/ecosystem": {
+      "auth": "OPTIONAL",
+      "returns": "repo_catalog"
+    }
+  },
+  "mutation_rules": [
+    "ALL_MUTATIONS_REQUIRE_IDEMPOTENCY_KEY_EXCEPT_LOGIN_LOGOUT",
+    "ALL_LEDGER_MUTATIONS_APPEND_ONLY",
+    "CLIENT_REQUESTS_INTENT_SERVER_DECIDES_MUTATION",
+    "BALANCE_NEVER_ACCEPTED_FROM_CLIENT_AS_AUTHORITY",
+    "INVENTORY_NEVER_ACCEPTED_FROM_CLIENT_AS_AUTHORITY",
+    "ENGINE_RECEIPT_REQUIRED_FOR_ENGINE_REWARD",
+    "HELIOS_RANDOM_EVENT_RECEIPT_REQUIRED_FOR_RANDOM_REWARD",
+    "GENESIS_SAVE_DIGEST_BOUND_TO_ACCOUNT_AND_WORLD",
+    "MARKET_COMMERCIAL_PAYMENT_NOT_MINT_JANUS_COIN"
+  ]
+}

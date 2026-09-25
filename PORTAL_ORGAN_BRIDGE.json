@@ -1,0 +1,112 @@
+{
+  "schema": "janus.portal.organ_bridge.v1",
+  "version": "1.0.0",
+  "status": "FRONTEND_PROTOCOL_READY_ADAPTERS_PENDING",
+  "parent_origin_policy": "EXACT_CONFIGURED_PORTAL_ORIGINS_ONLY",
+  "transports": [
+    "WINDOW_POSTMESSAGE",
+    "PORTAL_HTTP_API"
+  ],
+  "envelope": {
+    "fields": [
+      "schema",
+      "version",
+      "message_id",
+      "organ",
+      "type",
+      "account_session_hint",
+      "payload"
+    ],
+    "schema_value": "janus.portal.bridge.message.v1",
+    "message_id": "UUID",
+    "account_session_hint": "NON_SECRET_OPAQUE_SESSION_BINDING_ONLY"
+  },
+  "messages": {
+    "PORTAL_READY": {
+      "direction": "PARENT_TO_ORGAN"
+    },
+    "ACCOUNT_SNAPSHOT": {
+      "direction": "PARENT_TO_ORGAN",
+      "contains": [
+        "display_name",
+        "janus_coin_available",
+        "inventory_projection",
+        "organ_state_revision"
+      ]
+    },
+    "STATE_REQUEST": {
+      "direction": "ORGAN_TO_PARENT"
+    },
+    "MUTATION_INTENT": {
+      "direction": "ORGAN_TO_PARENT",
+      "server_authority_required": true,
+      "idempotency_required": true
+    },
+    "MUTATION_RESULT": {
+      "direction": "PARENT_TO_ORGAN"
+    },
+    "NAVIGATE_PORTAL": {
+      "direction": "ORGAN_TO_PARENT"
+    },
+    "RUNTIME_STATUS": {
+      "direction": "BIDIRECTIONAL"
+    }
+  },
+  "organ_policies": {
+    "HELIOS": {
+      "allowed_intents": [
+        "SPIN",
+        "CLAIM_GAME_REWARD",
+        "READ_PROFILE"
+      ],
+      "forbidden": [
+        "SET_BALANCE",
+        "SET_INVENTORY",
+        "REAL_MONEY_WAGER",
+        "CASH_OUT"
+      ]
+    },
+    "HRAIN": {
+      "allowed_intents": [
+        "READ_GRAPH",
+        "UPSERT_GRAPH_DELTA",
+        "IMPORT_LOCAL_GRAPH"
+      ],
+      "forbidden": [
+        "DELETE_REGISTRY",
+        "WRITE_OTHER_ACCOUNT_GRAPH"
+      ]
+    },
+    "INAIHR": {
+      "allowed_intents": [
+        "READ_GRAPH",
+        "UPSERT_GRAPH_DELTA",
+        "SYNTH_PROPOSAL",
+        "IMPORT_LOCAL_GRAPH"
+      ],
+      "forbidden": [
+        "SILENT_REMOTE_AI_CLAIM",
+        "WRITE_OTHER_ACCOUNT_GRAPH"
+      ]
+    },
+    "MARKET": {
+      "allowed_intents": [
+        "READ_CATALOG",
+        "READ_ENTITLEMENTS",
+        "OPEN_ORDER_FLOW"
+      ],
+      "forbidden": [
+        "MINT_GAME_COIN",
+        "INFER_PAYMENT_AUTHORITY"
+      ]
+    }
+  },
+  "security": [
+    "POSTMESSAGE_ORIGIN_MUST_MATCH_ALLOWLIST",
+    "NO_SECRET_IN_POSTMESSAGE",
+    "IFRAME_CANNOT_MUTATE_LEDGER_DIRECTLY",
+    "EVERY_MUTATION_REVALIDATED_SERVER_SIDE",
+    "LOCAL_STORAGE_IMPORT_IS_UNTRUSTED_MIGRATION_INPUT",
+    "REPLAYED_MESSAGE_ID_RETURNS_PRIOR_RESULT_OR_REJECTS"
+  ]
+}

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#05070b">
+  <title>JANUS Portal</title>
+  <meta name="description" content="One-login JANUS ecosystem portal: community, Genesis MMORPG, Market, HELIOS, HRaiN and iNaiHR.">
+  <link rel="stylesheet" href="./portal.css">
+</head>
+<body>
+  <div class="bg"></div>
+  <header class="topbar">
+    <div class="brand"><span class="mark">J</span><div><b>JANUS PORTAL</b><small>one login · one profile · one ecosystem</small></div></div>
+    <nav id="tabs" class="tabs" aria-label="JANUS sections"></nav>
+    <button id="profileButton" class="profile-button" type="button"><span id="avatar">J</span><span id="profileName">GUEST</span></button>
+  </header>
+
+  <main id="app">
+    <section class="view active" data-view="GROUP">
+      <div class="group-hero">
+        <div>
+          <div class="eyebrow">JANUS FIRST FOLLOWERS</div>
+          <h1>Группа — сердце экосистемы.</h1>
+          <p>Отсюда человек входит в мир JANUS: играет в Genesis, исследует графы, пользуется Market, запускает HELIOS и собирает единый инвентарь.</p>
+          <div class="hero-actions">
+            <button class="primary" data-go="GENESIS">Играть в Genesis</button>
+            <button data-go="MARKET">Открыть Market</button>
+            <button data-go="ECOSYSTEM">Вся экосистема</button>
+          </div>
+        </div>
+        <div class="identity-card">
+          <small>PORTAL ACCOUNT</small>
+          <strong id="homeName">Гость</strong>
+          <div class="balance"><span>JANUS COIN</span><b id="homeBalance">0</b></div>
+          <div class="identity-meta"><span id="homeStatus">LOGIN REQUIRED</span><span id="homeInventory">0 items</span></div>
+        </div>
+      </div>
+      <div class="panel-grid">
+        <article class="panel"><span class="panel-kicker">COMMUNITY</span><h3>First Followers</h3><p>Главный социальный вход JANUS: профиль, badges, новости, маршруты и взаимодействие с экосистемой.</p></article>
+        <article class="panel"><span class="panel-kicker">WORLD</span><h3>Genesis MMORPG</h3><p>Полноценная текстовая игра с persistent world state, inventory и свободными действиями естественным языком.</p></article>
+        <article class="panel"><span class="panel-kicker">MIND</span><h3>HRaiN + iNaiHR</h3><p>Личные mind maps и AI-assisted graph development, сохранённые в аккаунте.</p></article>
+        <article class="panel"><span class="panel-kicker">ECONOMY</span><h3>HELIOS + Market</h3><p>Игровой JANUS Coin для игровых механик; коммерческие USDT/BTT платежи остаются отдельным контуром.</p></article>
+      </div>
+    </section>
+
+    <section class="view" data-view="GENESIS">
+      <div class="section-head"><div><span class="eyebrow">JANUS GENESIS</span><h2>Text MMORPG</h2></div><div id="genesisRuntime" class="runtime offline">RUNTIME UNKNOWN</div></div>
+      <div class="genesis-layout">
+        <div class="chronicle">
+          <div id="chronicleLog" class="chronicle-log"><div class="system-msg">Войди в аккаунт, чтобы открыть свою хронику.</div></div>
+          <form id="genesisForm" class="command-row">
+            <input id="genesisInput" autocomplete="off" placeholder="Что ты делаешь? Любое действие естественным языком…" maxlength="4000">
+            <button class="primary" type="submit">Действовать</button>
+          </form>
+        </div>
+        <aside class="state-panel">
+          <h3>Твой мир</h3>
+          <div class="stat"><span>Turn</span><b id="genTurn">0</b></div>
+          <div class="stat"><span>Location</span><b id="genLocation">—</b></div>
+          <div class="stat"><span>World</span><b id="genWorld">—</b></div>
+          <button id="startGenesis" type="button">Начать / продолжить</button>
+          <button id="saveGenesis" type="button">Получить capsule</button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" data-view="MARKET">
+      <div class="section-head"><div><span class="eyebrow">JANUS MACHINE MARKET</span><h2>Research & agent services</h2></div></div>
+      <iframe class="organ-frame" title="JANUS Machine Market" data-src="https://hawkar-usls.github.io/JANUS-MACHINE-MARKET/"></iframe>
+    </section>
+
+    <section class="view" data-view="HELIOS">
+      <div class="section-head"><div><span class="eyebrow">JANUS HELIOS</span><h2>Slot & game economy</h2></div><span class="boundary">JANUS Coin only · no cash-out</span></div>
+      <iframe class="organ-frame" title="JANUS HELIOS" data-src="https://hawkar-usls.github.io/Janus-HELIOS/"></iframe>
+    </section>
+
+    <section class="view" data-view="HRAIN">
+      <div class="section-head"><div><span class="eyebrow">HRAIN</span><h2>Mind Map</h2></div><span class="boundary">account graph adapter</span></div>
+      <iframe class="organ-frame" title="HRaiN" data-src="https://hawkar-usls.github.io/Hrain/"></iframe>
+    </section>
+
+    <section class="view" data-view="INAIHR">
+      <div class="section-head"><div><span class="eyebrow">iNaiHR</span><h2>AI Mind Map</h2></div><span class="boundary">AI synthesis · persistent graph</span></div>
+      <iframe class="organ-frame" title="iNaiHR" data-src="https://hawkar-usls.github.io/iNaiHR/"></iframe>
+    </section>
+
+    <section class="view" data-view="INVENTORY">
+      <div class="section-head"><div><span class="eyebrow">ACCOUNT LEDGER</span><h2>Inventory</h2></div><div class="wallet"><span>JANUS COIN</span><b id="inventoryBalance">0</b></div></div>
+      <div id="inventoryGrid" class="inventory-grid"></div>
+    </section>
+
+    <section class="view" data-view="PROFILE">
+      <div class="section-head"><div><span class="eyebrow">IDENTITY</span><h2>Profile</h2></div></div>
+      <div id="profileCard" class="profile-card"></div>
+    </section>
+
+    <section class="view" data-view="ECOSYSTEM">
+      <div class="section-head"><div><span class="eyebrow">JANUS CONSTELLATION</span><h2>Все органы и репозитории</h2></div></div>
+      <div id="ecosystemGrid" class="ecosystem-grid"></div>
+    </section>
+  </main>
+
+  <div id="loginModal" class="modal open" aria-hidden="false">
+    <div class="login-card">
+      <div class="mark big">J</div>
+      <h2>Войти в JANUS</h2>
+      <p>Один аккаунт для Genesis, HELIOS, HRaiN, iNaiHR, Market и группы.</p>
+      <button id="telegramLogin" class="primary">Войти через Telegram</button>
+      <button id="githubLogin">Войти через GitHub</button>
+      <button id="passkeyLogin">Passkey</button>
+      <a class="bot-link" href="https://t.me/Ini_Chron_bot" target="_blank" rel="noopener">Открыть Telegram bot ↗</a>
+      <small id="loginState">Backend login должен подтвердить identity server-side. Browser data не является authority.</small>
+      <button id="guestPreview" class="ghost">Только посмотреть группу</button>
+    </div>
+  </div>
+
+  <script src="./portal.js" type="module"></script>
+</body>
+</html>
