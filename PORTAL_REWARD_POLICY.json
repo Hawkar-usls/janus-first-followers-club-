@@ -1,0 +1,195 @@
+{
+  "schema": "janus.portal.reward_policy.v1",
+  "version": "1.0.0",
+  "recorded_at": "2026-09-25",
+  "status": "FROZEN_V1_IMPLEMENTATION_READY_BACKEND_ACTIVATION_PENDING",
+  "currency": {
+    "id": "JANUS_COIN",
+    "kind": "NON_TRANSFERABLE_GAME_UTILITY_CREDIT",
+    "cash_value": false,
+    "withdrawable": false,
+    "transferable_between_users": false,
+    "purchasable_with_crypto": false,
+    "redeemable_for_cash": false
+  },
+  "progression": {
+    "xp_authoritative": true,
+    "level_formula": "level = floor(sqrt(total_xp / 100)) + 1",
+    "max_level_for_v1": 100,
+    "xp_cannot_be_spent": true
+  },
+  "daily_reward": {
+    "claim_route": "POST /api/portal/rewards/daily/claim",
+    "one_claim_per_account_per_utc_day": true,
+    "streak_requires_consecutive_utc_days": true,
+    "missed_day_resets_streak_to_1": true,
+    "rewards_by_streak_day": {
+      "1": {
+        "janus_coin": 25,
+        "xp": 10
+      },
+      "2": {
+        "janus_coin": 30,
+        "xp": 10
+      },
+      "3": {
+        "janus_coin": 35,
+        "xp": 15
+      },
+      "4": {
+        "janus_coin": 40,
+        "xp": 15
+      },
+      "5": {
+        "janus_coin": 50,
+        "xp": 20
+      },
+      "6": {
+        "janus_coin": 60,
+        "xp": 20
+      },
+      "7": {
+        "janus_coin": 100,
+        "xp": 40,
+        "item": "PORTAL_DAILY_CHEST"
+      }
+    },
+    "after_day_7": "REPEAT_7_DAY_CYCLE_WITH_STREAK_COUNTER_CONTINUING",
+    "client_clock_is_authority": false,
+    "server_clock_required": true
+  },
+  "activity_sources": {
+    "GROUP_DAILY_PARTICIPATION": {
+      "description": "First eligible meaningful community participation event for the account on a UTC day.",
+      "xp": 15,
+      "janus_coin": 10,
+      "daily_cap": 1,
+      "raw_message_count_rewarded": false,
+      "requires": [
+        "VERIFIED_ACCOUNT",
+        "UNIQUE_SOURCE_EVENT_ID",
+        "NON_AUTOMATED_OR_EXPLICITLY_ALLOWED_AGENT",
+        "MINIMUM_CONTENT_OR_REACTION_POLICY"
+      ]
+    },
+    "GROUP_ACCEPTED_CONTRIBUTION": {
+      "description": "Contribution explicitly accepted/featured by group moderation or a governed project workflow.",
+      "xp": 75,
+      "janus_coin": 75,
+      "daily_cap": 3,
+      "requires": [
+        "MODERATION_OR_GOVERNED_ACCEPTANCE_RECEIPT"
+      ]
+    },
+    "GENESIS_DAILY_PLAY": {
+      "description": "First authoritative Genesis turn completed by the account on a UTC day.",
+      "xp": 20,
+      "janus_coin": 10,
+      "daily_cap": 1,
+      "requires": [
+        "GENESIS_ENGINE_RECEIPT"
+      ]
+    },
+    "GENESIS_QUEST_COMPLETE": {
+      "description": "Authoritative Genesis quest/achievement receipt.",
+      "xp": 50,
+      "janus_coin": 40,
+      "daily_cap": 10,
+      "requires": [
+        "GENESIS_ENGINE_RECEIPT"
+      ]
+    },
+    "HRAIN_GRAPH_SAVE": {
+      "description": "First successful account-bound HRaiN graph revision saved on a UTC day.",
+      "xp": 15,
+      "janus_coin": 5,
+      "daily_cap": 1,
+      "requires": [
+        "GRAPH_REVISION_RECEIPT"
+      ]
+    },
+    "INAIHR_ACCEPTED_SYNTH": {
+      "description": "First AI/local synthesis delta explicitly accepted into the account graph on a UTC day.",
+      "xp": 20,
+      "janus_coin": 5,
+      "daily_cap": 1,
+      "requires": [
+        "GRAPH_REVISION_RECEIPT",
+        "USER_ACCEPTANCE"
+      ]
+    },
+    "MARKET_COMPLETED_FREE_SEARCH": {
+      "description": "Completed first-free JANUS.SEARCH with reconciled Market receipt.",
+      "xp": 30,
+      "janus_coin": 20,
+      "lifetime_cap": 1,
+      "requires": [
+        "MARKET_RECONCILE_RECEIPT"
+      ]
+    },
+    "MARKET_COMPLETED_PAID_ORDER": {
+      "description": "Completed paid Market order after commerce activation.",
+      "xp": 40,
+      "janus_coin": 0,
+      "reward_money_spend_directly": false,
+      "requires": [
+        "MARKET_RECONCILE_RECEIPT",
+        "COMMERCE_LIVE"
+      ]
+    },
+    "HELIOS_DAILY_PLAY": {
+      "description": "First non-cash HELIOS gameplay session receipt for the UTC day.",
+      "xp": 10,
+      "janus_coin": 0,
+      "daily_cap": 1,
+      "requires": [
+        "HELIOS_GAME_RECEIPT"
+      ]
+    },
+    "CROSS_ORGAN_EXPLORATION": {
+      "description": "Use three distinct JANUS organs in one UTC week.",
+      "xp": 60,
+      "janus_coin": 50,
+      "weekly_cap": 1,
+      "requires": [
+        "THREE_DISTINCT_ORGAN_RECEIPTS"
+      ]
+    }
+  },
+  "anti_abuse": {
+    "event_id_unique_forever": true,
+    "idempotency_key_required": true,
+    "source_receipt_digest_required": true,
+    "same_event_cannot_reward_twice": true,
+    "self_generated_admin_event_cannot_bypass_caps": true,
+    "deleted_or_retracted_source_event_can_trigger_reward_reversal": true,
+    "moderation_can_freeze_rewards": true,
+    "bot_activity_default": "NO_REWARD",
+    "bot_activity_exception": "EXPLICIT_MACHINE_ACCOUNT_POLICY_ONLY",
+    "group_spam_signals": [
+      "DUPLICATE_CONTENT",
+      "MESSAGE_BURST",
+      "LINK_FARMING",
+      "SELF_REPLY_LOOP",
+      "BOT_LOOP",
+      "REACTION_FARMING"
+    ],
+    "raw_message_volume_multiplier": 0,
+    "payment_amount_multiplier": 0,
+    "real_money_spend_never_increases_game_odds": true
+  },
+  "achievement_reward_rule": {
+    "each_achievement_unlock_once": true,
+    "append_only_unlock_receipt": true,
+    "rewards_server_minted_only": true
+  },
+  "truth_boundary": [
+    "ACTIVITY != QUALITY",
+    "MESSAGE_COUNT != REWARD",
+    "PAYMENT != GAME_PROGRESSION_AUTHORITY",
+    "JANUS_COIN != MONEY",
+    "ACHIEVEMENT != SCIENTIFIC_VALIDATION",
+    "BOT_ACTIVITY != HUMAN_ACTIVITY",
+    "CLIENT_EVENT != AUTHORITATIVE_RECEIPT"
+  ]
+}
