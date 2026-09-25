@@ -12,6 +12,9 @@ on:
       - 'portal_backend/**'
       - 'PORTAL_ACTIVITY_BRIDGE.json'
       - 'PORTAL_GAME_REWARD_BRIDGE.json'
+      - 'tests/test_portal_backend_foundation.py'
+      - 'tests/test_portal_service.py'
+      - 'PORTAL_TELEGRAM_AUTH.json'
       - 'PORTAL_ACHIEVEMENTS.json'
       - 'PORTAL_REWARD_POLICY.json'
       - 'portal/**'
@@ -28,6 +31,9 @@ on:
       - 'portal_backend/**'
       - 'PORTAL_ACTIVITY_BRIDGE.json'
       - 'PORTAL_GAME_REWARD_BRIDGE.json'
+      - 'tests/test_portal_backend_foundation.py'
+      - 'tests/test_portal_service.py'
+      - 'PORTAL_TELEGRAM_AUTH.json'
       - 'PORTAL_ACHIEVEMENTS.json'
       - 'PORTAL_REWARD_POLICY.json'
       - 'portal/**'
@@ -57,6 +63,7 @@ jobs:
           python -m json.tool PORTAL_ACHIEVEMENTS.json >/dev/null
           python -m json.tool PORTAL_ACTIVITY_BRIDGE.json >/dev/null
           python -m json.tool PORTAL_GAME_REWARD_BRIDGE.json >/dev/null
+          python -m json.tool PORTAL_TELEGRAM_AUTH.json >/dev/null
           python -m json.tool portal/ecosystem-catalog.json >/dev/null
       - name: Validate portal browser code
         run: |
@@ -75,6 +82,7 @@ jobs:
           ach=json.load(open('PORTAL_ACHIEVEMENTS.json',encoding='utf-8'))
           ab=json.load(open('PORTAL_ACTIVITY_BRIDGE.json',encoding='utf-8'))
           gr=json.load(open('PORTAL_GAME_REWARD_BRIDGE.json',encoding='utf-8'))
+          tg=json.load(open('PORTAL_TELEGRAM_AUTH.json',encoding='utf-8'))
           assert a['home_after_login']=='GROUP'
           assert a['economy']['currency']=='JANUS_COIN'
           assert a['economy']['cash_value'] is False
@@ -103,6 +111,10 @@ jobs:
           assert gr['authority']['client_can_mint'] is False
           assert gr['grants']['PORTAL_DAILY_CHEST']['affects_real_money_odds'] is False
           assert 'REWARD_NE_RNG_WEIGHT' in gr['firewalls']
+          assert tg['website_login']['pkce']=='S256_REQUIRED'
+          assert tg['website_login']['client_secret_server_side_only'] is True
+          assert tg['mini_app_login']['initDataUnsafe_is_authority'] is False
+          assert tg['secrets_in_browser'] is False
           print('JANUS_PORTAL_CONTRACT=PASS')
           print('GROUP_DEFAULT_HOME=TRUE')
           print('SERVER_LEDGER_AUTHORITY=TRUE')

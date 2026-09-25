@@ -198,7 +198,7 @@ async function telegramLogin(){
   if(tg?.initData){
     try{await api('/api/portal/auth/telegram',{method:'POST',body:JSON.stringify({init_data:tg.initData})});await refreshAccount();return}catch(e){$('#loginState').textContent='Telegram login failed: '+e.message;return}
   }
-  location.href='https://t.me/Ini_Chron_bot?start=janus_portal_login';
+  location.href=endpoint('/api/portal/auth/telegram/start?return_to='+encodeURIComponent(location.href));
 }
 function githubLogin(){location.href=endpoint('/api/portal/auth/github/start?return_to='+encodeURIComponent(location.href))}
 async function passkeyLogin(){

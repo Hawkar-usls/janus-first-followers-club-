@@ -1,0 +1,50 @@
+{
+  "schema": "janus.portal.telegram_auth.v1",
+  "version": "1.0.0",
+  "recorded_at": "2026-09-25",
+  "status": "IMPLEMENTATION_FOUNDATION_READY_SECRETS_AND_DEPLOYMENT_PENDING",
+  "website_login": {
+    "protocol": "TELEGRAM_OPENID_CONNECT_AUTHORIZATION_CODE",
+    "issuer": "https://oauth.telegram.org",
+    "discovery": "https://oauth.telegram.org/.well-known/openid-configuration",
+    "pkce": "S256_REQUIRED",
+    "state": "REQUIRED_AND_SERVER_BOUND",
+    "scopes": [
+      "openid",
+      "profile",
+      "telegram:bot_access"
+    ],
+    "id_token_validation": [
+      "JWKS_SIGNATURE",
+      "ISSUER",
+      "AUDIENCE",
+      "EXPIRY"
+    ],
+    "client_id_source": "BOTFATHER_SECRET_CONFIG",
+    "client_secret_server_side_only": true
+  },
+  "mini_app_login": {
+    "input": "Telegram.WebApp.initData",
+    "server_validation": "HMAC_SHA256_PER_TELEGRAM_SPEC",
+    "max_age_seconds": 600,
+    "initDataUnsafe_is_authority": false,
+    "bot_user_human_login_allowed": false
+  },
+  "account_binding": {
+    "canonical_principal": "telegram:<numeric_user_id>",
+    "username_is_authority": false,
+    "display_name_mutable": true,
+    "explicit_cross_provider_link_required": true
+  },
+  "secrets": [
+    "TELEGRAM_BOT_TOKEN",
+    "TELEGRAM_OIDC_CLIENT_ID",
+    "TELEGRAM_OIDC_CLIENT_SECRET",
+    "PORTAL_SESSION_SECRET"
+  ],
+  "secrets_in_browser": false,
+  "sources": [
+    "https://core.telegram.org/bots/telegram-login",
+    "https://core.telegram.org/bots/webapps"
+  ]
+}
